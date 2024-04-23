@@ -1,1 +1,131 @@
-body {color:blue;}
+/*Start CSS Reset Code
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* Remove default margin */
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+figure,
+blockquote,
+dl,
+dd {
+    margin: 0;
+}
+
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul[role='list'],
+ol[role='list'] {
+    list-style: none;
+}
+
+/* Set core root defaults */
+html:focus-within {
+    scroll-behavior: smooth;
+}
+
+/* Set core body defaults */
+body {
+    min-height: 100vh;
+    text-rendering: optimizeSpeed;
+    line-height: 1.5;
+}
+
+html, body {
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    overflow-x: hidden;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+    text-decoration-skip-ink: auto;
+}
+
+/* Make images easier to work with */
+img,
+picture {
+    max-width: 100%;
+    display: block;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+    font: inherit;
+}
+
+/*End Reset Code*/
+
+
+:root {
+    --black: #070600;
+    --white: #f7f7ff;
+    --grey: #dadada;
+    --pink: #ea526f;
+    --cyan: #23b5d3;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  }
+
+  body {
+    background-color: var(--white);
+  }
+
+  #taskForm {
+    position: absolute;
+    top:0;
+    right:30%;
+    border: 3px solid var(--grey);
+    background-color: var(--white)
+
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  #sidebar {
+    background-color: var(--grey);
+  }
+
+  #wrapper {
+    display: grid;
+    grid-template-columns: 20% 80%;
+    height:100vh;
+  }
+
+  #taskAreaHeader {
+    background-color: var(--cyan);
+    text-align: center;
+    color: var(--black);
+    height: 50px;
+    display: grid;
+    grid-template-columns: 60% 40%;
+    align-items: center;
+  } 
+
+  #taskAreaContent {
+    display: grid; 
+    grid-template-columns: 60% 40%;
+  } 
+
+  #taskList {
+    background-color: var(--pink);
+  }
+
+  #taskExpand {
+    background-color: var(--cyan); 
+  }
+

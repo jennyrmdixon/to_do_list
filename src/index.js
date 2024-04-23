@@ -1,3 +1,7 @@
 import './style.css';
+// import createTask from './tasks';
+// import { allTasks } from './tasks'; 
+import addEventListeners from './gui.js'
 
-console.log("Hello webpack");
+addEventListeners();
+

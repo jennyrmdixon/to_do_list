@@ -5,6 +5,27 @@
     <title>To-Do List</title>
   </head>
   <body>
-    <p>To-Do List App/p>
-  </body>
-</html>
+    <div class="form-popup, hidden" id="taskFormContainer">
+      <form action="/action_page.php" method= "get" id="taskForm">
+        <label for="tname">Name</label>
+        <input type="text" id="tname" name="tname"><br>
+        <label for="tname">Description</label>
+        <input type="text" id="description" name="description"><br>
+        <button type="submit">Submit</button>
+      </form>
+</div>
+      
+    <div id="wrapper">
+        <div id="sidebar">
+          <ul>
+            <li>All Projects</li>
+          </ul>
+          </div>
+          <div id="taskArea">
+            <div id="taskAreaHeader"><h1>My To-Dos</h1><div id="newTaskButton"><button>New Task</button></div></div>
+            <div id="taskAreaContent">
+              <div id="taskList"></div>
+              <div id="taskExpand"></div>
+            </div>
+          </div>
+     </div>
