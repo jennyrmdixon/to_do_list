@@ -4,7 +4,6 @@
 
 
 export let allTasks = [];
-console.log("tasks1");
 console.log(allTasks);
 
 class Task {
@@ -14,30 +13,32 @@ class Task {
   }
 }
 
-export default function createTask (name, description) {
+function createTask (name, description) {
     let task = new Task (name, description);
     allTasks.push(task);
+    console.log("run createTask")
+    console.log(allTasks)
+
 }
-createTask ("dust", "dusting");
-createTask ("drink water", "drink 32 oz water");
+
+createTask ("Sample Task", "Here's an example of what a sample task looks like!");
+
+const taskFormContainer = document.getElementById("taskFormContainer");
+const taskForm = document.getElementById("taskForm");
+
+export function setCreateTaskListener () {
+  taskForm.addEventListener('submit', (event) => {
+    //Add logic to add unique identifier onto task
+      event.preventDefault();
+        let taskName = document.getElementById("taskName").value;
+        let taskDescription = document.getElementById("taskDescription").value;
+        createTask(taskName, taskDescription);
+  })
+}
+
+//Listen for form to submit task
+//On submit, find task (by name or ID)
 
 
-
-//export function to delete task (and add to an array)
-
-// /*Export function to edit task*/
-// /*Find in array - lookup by name?*/
-// /*Loop through fields*/
-// /*If edited =
-// /*"index"."property" = new value
-// /*
-
-
-// /***Reorg to another file - form */
-// /*For each field 
-// /*write new property*/
-
-
-// /*Function to check if an task has an existing name, export array # if it exists - don't create 2 of same name
-// function findTask (name) {
-// }*/
+//Listen for delete button on form
+//On submit, remove from array

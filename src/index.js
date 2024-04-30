@@ -1,7 +1,9 @@
 import './style.css';
-// import createTask from './tasks';
-// import { allTasks } from './tasks'; 
-import addEventListeners from './gui.js'
+import {addGUIListeners} from "./gui.js";
+import {setCreateTaskListener} from "./tasks";
 
-addEventListeners();
+
+addGUIListeners();
+setCreateTaskListener();
+console.log("test index");
 

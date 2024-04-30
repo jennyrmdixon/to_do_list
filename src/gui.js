@@ -5,22 +5,25 @@
 /**After adding or editing a task */
 
 const newTaskButton = document.getElementById("newTaskButton");
-const taskFormContainer = document.getElementById("taskFormContainer");
-const taskForm = document.getElementById("taskForm");
 
-export default function addEventListeners() {
+export function addGUIListeners() {
 
     newTaskButton.addEventListener("click", () => {
         taskFormContainer.classList.remove("hidden");
     });
+    //On submit: show that it's saved for a few seconds
+    //Close out task, clear out saved message
 
 
-    taskForm.addEventListener('submit', (event) => {
-        event.preventDefault();
+    //Edit task:
+    //Listen for task edit form
+    //close task form
 
-        const formData = new FormData(taskForm);
-        const data = Object.fromEntries(formData);
-        taskForm.classList.remove("hidden");
-        console.log(data);
-    })
+    //Display array of all tasks on right content area
+    //By default, show all tasks
+    //Add lisenter to check for 
+
 }
+
+
+ console.log("test gui");
