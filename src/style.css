@@ -116,16 +116,20 @@ select {
     align-items: center;
   } 
 
-  #taskAreaContent {
-    display: grid; 
-    grid-template-columns: 60% 40%;
-  } 
-
   #taskList {
     background-color: var(--pink);
   }
 
   #taskExpand {
     background-color: var(--cyan); 
+  }
+
+  .projectContainer {
+    margin: 10px;
+  }
+
+  .taskContainer {
+    border-bottom: 1px solid grey;
+    padding: 5px;
   }
 

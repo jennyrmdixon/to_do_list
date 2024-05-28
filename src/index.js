@@ -1,12 +1,14 @@
 import './style.css';
 import {allTasks} from "./tasks";
 import {createProject} from "./projects.js"
-createProject("Default Project", "Sample description 1", allTasks);
-createProject("Sample Project2", "Sample description2", allTasks);
-
-import {addGUIListeners} from "./gui.js";
-
+createProject("Test Project", "An unfiltered view of all tasks", allTasks);
+createProject("All Tasks", "An unfiltered view of all tasks", allTasks);
+import {initDynamicContent} from "./gui.js";
 
 
-addGUIListeners();
+
+document.addEventListener('DOMContentLoaded', function() {
+    initDynamicContent();
+});
+
 

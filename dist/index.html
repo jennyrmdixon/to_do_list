@@ -7,9 +7,9 @@
   <body>
     <div class="form-popup, hidden" id="taskFormContainer">
       <form action="" method= "get" id="taskForm">
-        <label for="tname">Name</label>
+        <label for="taskName">Name</label>
         <input type="text" id="taskName" name="tname"><br>
-        <label for="tname">Description</label>
+        <label for="taskDescription">Description</label>
         <input type="text" id="taskDescription" name="description"><br>
         <input type="select" id="taskProject" name="project">
         <button type="submit">Submit</button>
@@ -23,8 +23,7 @@
       
     <div id="wrapper">
         <div id="sidebar">
-          <ul>
-            <li>All Projects</li>
+          <ul id="projectList">
           </ul>
           </div>
           <div id="taskArea">
