@@ -5,15 +5,20 @@
     <title>To-Do List</title>
   </head>
   <body>
+    <span id="testID"></span>
     <div class="form-popup, hidden" id="taskFormContainer">
       <form action="" method= "get" id="taskForm">
         <label for="taskName">Name</label>
-        <input type="text" id="taskName" name="tname"><br>
+        <input type="text" id="taskName" name="taskName"><br>
         <label for="taskDescription">Description</label>
-        <input type="text" id="taskDescription" name="description"><br>
-        <input type="select" id="taskProject" name="project">
+        <input type="text" id="taskDescription" name="taskDescription"><br>
+        <label for="selectProject">Project</label>
+       <select id="selectProject" name="selectProject"><br> 
+               <option value="0">Test Project</option>
+        <option value="0">Test Project</option>
+       </select>
         <button type="submit">Submit</button>
-        <!--Add close button to form-->
+        <button type="button" id="taskFormClose">Close</button>
       </form>
       <!--Add task edit form-->
       <!--Add project creation form-->
