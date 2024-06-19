@@ -1,11 +1,11 @@
-import { allTasks, createTask, deleteTask } from "./tasks";
+import { allTasks, createTask, fullDeleteTask } from "./tasks";
 import { allProjects } from "./projects";
 
 export async function initDynamicContent() {
   await allProjects;
   await allTasks;
   await createTask;
-  await deleteTask;
+  await fullDeleteTask;
 
 
   //Handle generating tasks and projects
@@ -130,7 +130,7 @@ export async function initDynamicContent() {
 
   document.addEventListener("click", function (event) {
     if (event.target.classList.contains('deleteBtn')) {
-        deleteTask(event.target.parentNode.id);
+        fullDeleteTask(event.target.parentNode.id);
         deleteNode(event.target.parentNode.id);
         // add logic to delete from project
     }

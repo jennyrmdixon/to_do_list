@@ -1,5 +1,7 @@
 export let allTasks = [];
 import { uId, findById } from "./helpers.js";
+import { allProjects } from "./projects.js";
+
 
 class Task {
   constructor(name, description) { 
@@ -24,13 +26,15 @@ createTask(
 );
 
 
-export const deleteTask = (id) => {
-  console.log(allTasks);
-  let index = findById(allTasks, id);
-  console.log(index);
-  allTasks.splice(index,1);
-  console.log(allTasks);
-
-  //Also remove from any projects
+const deleteTask  = (array, taskId) => {
+  let index = findById(array, taskId);
+  array.splice(index,1);
 }
 
+export const fullDeleteTask = (id) => {
+  deleteTask(allTasks, id);
+  for (const project of allProjects) {
+    let index = findById(project.tasks, id);
+    project.tasks.splice(index,1);
+  }
+}
