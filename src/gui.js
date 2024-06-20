@@ -64,7 +64,6 @@ export async function initDynamicContent() {
     for (var i = 0; i < project.tasks.length; i++) {
       displayTask(project.tasks[i]);
     }
-    
   };
 
   const clearProjectsTasks = () => {
@@ -96,8 +95,8 @@ export async function initDynamicContent() {
   };
 
   const displayProjectOptions = () => {
-    console.log(select);
-    for (let i = 0; i < allProjects.length; i++) {
+//Skip All Projects at Index 0
+    for (let i = 1; i < allProjects.length; i++) {
       let project = allProjects[i];
       let projectOption = document.createElement("option");
       projectOption.textContent = project.name;
@@ -126,16 +125,12 @@ export async function initDynamicContent() {
     taskFormContainer.classList.add("hidden");
   });
 
-
-
   document.addEventListener("click", function (event) {
     if (event.target.classList.contains('deleteBtn')) {
         fullDeleteTask(event.target.parentNode.id);
         deleteNode(event.target.parentNode.id);
-        // add logic to delete from project
     }
   });
-
 
   projectList.addEventListener("click", function (event) {
     if (event.target.tagName === "LI") {
@@ -147,6 +142,8 @@ export async function initDynamicContent() {
     }
   });
 
+  //Put in non-GUI section?
+  //Why does it get added to all projects twice?
   const addTasktoProject = (task) => {
     let selectProject = document.getElementById("selectProject").value;
     allProjects[selectProject].tasks.push(task);
@@ -161,7 +158,6 @@ export async function initDynamicContent() {
     addTasktoProject(allTasks[allTasks.length - 1]);
   });
 }
-
 
 export const addProjectLink = (project) => {
   let projectLink = document.createElement("li");
@@ -181,3 +177,7 @@ export const addProjectLink = (project) => {
 //Display project: Name, description, display array of tasks
 
 //Close form modals when button is presed
+
+//June 19
+//Fix modal to add all to new project, plus new project
+//Start solving refresh / saving: Save all information locally, then auto-refresh page on form submit
