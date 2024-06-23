@@ -1,6 +1,10 @@
-export let allTasks = [];
-import { uId, findById } from "./helpers.js";
+import { uId, findById, populateStorage, getStoredTasks} from "./helpers.js";
 import { allProjects } from "./projects.js";
+
+export let allTasks =[];
+if (localStorage.allTasks){
+  allTasks = getStoredTasks();
+  }
 
 
 class Task {
@@ -14,17 +18,15 @@ class Task {
 export const createTask = (name, description) => {
   let task = new Task(name, description);
   allTasks.push(task);
+  populateStorage();
 };
 
+if (!localStorage.allTasks){
 createTask(
   "Sample Task",
-  "Here's an example of what a sother ample task looks like!"
+  "Here's an example of what a task looks like!"
 );
-createTask(
-  "Sample Task2",
-  "Here's another example of what a sample task looks like!"
-);
-
+}
 
 const deleteTask  = (array, taskId) => {
   let index = findById(array, taskId);

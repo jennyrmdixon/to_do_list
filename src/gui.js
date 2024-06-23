@@ -1,5 +1,6 @@
 import { allTasks, createTask, fullDeleteTask } from "./tasks";
 import { allProjects } from "./projects";
+import { populateStorage } from "./helpers";
 
 export async function initDynamicContent() {
   await allProjects;
@@ -42,6 +43,8 @@ export async function initDynamicContent() {
   };
 
   const displayTask = (task) => {
+    console.log(allProjects);
+    console.log(allTasks);
     let taskContainer = document.createElement("div");
     taskContainer.classList.add("taskContainer");
     taskArea.appendChild(taskContainer);
@@ -61,7 +64,7 @@ export async function initDynamicContent() {
   };
 
   const displayTasks = (project) => {
-    for (var i = 0; i < project.tasks.length; i++) {
+    for (let i = 0; i < project.tasks.length; i++) {
       displayTask(project.tasks[i]);
     }
   };
@@ -83,9 +86,12 @@ export async function initDynamicContent() {
     displayTasks(project);
   };
 
-  //Default content on website
+  //Load all projects on page load
 
-  displayProjectwithTasks(allProjects[0]);
+  // for (let i =0; i < allProjects.length; i++ ){
+  // displayProjectwithTasks(allProjects[i]);
+  // }
+
 
   // Populate form fields
   let select = document.getElementById("selectProject");
@@ -132,6 +138,8 @@ export async function initDynamicContent() {
     }
   });
 
+  //Display project info after clicking on each page
+
   projectList.addEventListener("click", function (event) {
     if (event.target.tagName === "LI") {
       let projectName = event.target.innerText;
@@ -143,7 +151,6 @@ export async function initDynamicContent() {
   });
 
   //Put in non-GUI section?
-  //Why does it get added to all projects twice?
   const addTasktoProject = (task) => {
     let selectProject = document.getElementById("selectProject").value;
     allProjects[selectProject].tasks.push(task);
@@ -156,6 +163,7 @@ export async function initDynamicContent() {
     let taskDescription = document.getElementById("taskDescription").value;
     createTask(taskName, taskDescription);
     addTasktoProject(allTasks[allTasks.length - 1]);
+    populateStorage();
   });
 }
 
@@ -178,6 +186,3 @@ export const addProjectLink = (project) => {
 
 //Close form modals when button is presed
 
-//June 19
-//Fix modal to add all to new project, plus new project
-//Start solving refresh / saving: Save all information locally, then auto-refresh page on form submit
