@@ -8,9 +8,7 @@ export async function initDynamicContent() {
   await createTask;
   await fullDeleteTask;
 
-
-  //Handle generating tasks and projects
-
+   
   const taskArea = document.getElementById("taskAreaContent");
 
   //*Put this out in DOMUTILS*/
@@ -43,8 +41,7 @@ export async function initDynamicContent() {
   };
 
   const displayTask = (task) => {
-    console.log(allProjects);
-    console.log(allTasks);
+
     let taskContainer = document.createElement("div");
     taskContainer.classList.add("taskContainer");
     taskArea.appendChild(taskContainer);
@@ -85,13 +82,6 @@ export async function initDynamicContent() {
     displayProject(project);
     displayTasks(project);
   };
-
-  //Load all projects on page load
-
-  // for (let i =0; i < allProjects.length; i++ ){
-  // displayProjectwithTasks(allProjects[i]);
-  // }
-
 
   // Populate form fields
   let select = document.getElementById("selectProject");
@@ -154,9 +144,18 @@ export async function initDynamicContent() {
   const addTasktoProject = (task) => {
     let selectProject = document.getElementById("selectProject").value;
     allProjects[selectProject].tasks.push(task);
+    displayProjectwithTasks(allProjects[selectProject]);
   };
 
   //Combine this with project listener?
+  //Add function to re-create project on submission
+  
+  //Steps for listener:
+  //1. Create new task
+  //2. Add Task to Project (can this be done as part of create task?)
+  //3. Update sotrage
+  //4. Re-load page
+
   taskForm.addEventListener("submit", (event) => {
     event.preventDefault();
     let taskName = document.getElementById("taskName").value;
@@ -165,6 +164,10 @@ export async function initDynamicContent() {
     addTasktoProject(allTasks[allTasks.length - 1]);
     populateStorage();
   });
+
+  //On new load, auto display new tasks 
+  displayProjectwithTasks(allProjects[0]);
+
 }
 
 export const addProjectLink = (project) => {

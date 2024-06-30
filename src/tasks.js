@@ -6,7 +6,6 @@ if (localStorage.allTasks){
   allTasks = getStoredTasks();
   }
 
-
 class Task {
   constructor(name, description) { 
     this.name = name;
