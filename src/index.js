@@ -20,4 +20,3 @@ document.addEventListener("DOMContentLoaded", function () {
   }, 100); // Check every 100 milliseconds
 });
 
-
