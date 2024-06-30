@@ -20,3 +20,6 @@ document.addEventListener("DOMContentLoaded", function () {
   }, 100); // Check every 100 milliseconds
 });
 
+
+//Jun 30 -
+//Next up, refactor for better org

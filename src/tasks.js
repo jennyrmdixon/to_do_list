@@ -27,16 +27,20 @@ createTask(
 );
 }
 
-const deleteTask  = (array, taskId) => {
+const deleteTaskFromArray = (array, taskId) => {
   let index = findById(array, taskId);
+  console.log(index)
+  if (index > -1){
   array.splice(index,1);
 }
+}
 
+//Troubleshoot - currently delete from same index of other projects are deleted
 export const fullDeleteTask = (id) => {
-  deleteTask(allTasks, id);
+  deleteTaskFromArray(allTasks, id);
   for (const project of allProjects) {
-    let index = findById(project.tasks, id);
-    project.tasks.splice(index,1);
-    populateStorage();
+    console.log(project)
+    deleteTaskFromArray(project.tasks, id);
   }
+  populateStorage();
 }
