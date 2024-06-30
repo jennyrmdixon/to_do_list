@@ -38,5 +38,4 @@ export const fullDeleteTask = (id) => {
     let index = findById(project.tasks, id);
     project.tasks.splice(index,1);
   }
-  populateStorage();
 }
