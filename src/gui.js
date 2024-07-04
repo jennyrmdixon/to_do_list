@@ -155,12 +155,3 @@ export const addProjectLink = (project) => {
   projectLink.textContent = project.name;
   projectList.appendChild(projectLink);
 };
-
-//Add function to ask all projects to task create/edit form as a checkbox
-
-//On submit of any form (new task, new project, edited task, edited project): show that it's saved for a few seconds, then close original form
-//On clicking delete button:show message that it's deleted for a few seconds, ,then hide form
-
-//Display all projects in sidebar from array````````
-//Display array of all tasks on right content area
-//Display project: Name, description, display array of tasks
