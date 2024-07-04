@@ -13,7 +13,7 @@ import { initDynamicContent } from "./gui.js";
 document.addEventListener("DOMContentLoaded", function () {
   var checkAllTasks = setInterval(function () {
     if (localStorage.allTasks === JSON.stringify(allTasks)) {
-      allProjects[0].tasks= allTasks;
+      allProjects[0].tasks = allTasks;
       clearInterval(checkAllTasks);
       initDynamicContent();
     }
@@ -21,5 +21,3 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-//Jun 30 -
-//Next up, refactor for better org

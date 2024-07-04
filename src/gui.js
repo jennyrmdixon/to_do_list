@@ -1,17 +1,16 @@
-import { allTasks, createTask, fullDeleteTask } from "./tasks";
+import { allTasks, createTask, addTaskToArray, fullDeleteTask } from "./tasks";
 import { allProjects } from "./projects";
-import { populateStorage } from "./helpers";
 
-export async function initDynamicContent() {
-  await allProjects;
-  await allTasks;
-  await createTask;
-  await fullDeleteTask;
-
-   
+export function initDynamicContent() {
+  const newTaskButton = document.getElementById("newTaskButton");
+  const taskFormCloseButton = document.getElementById("taskFormClose");
+  const taskFormContainer = document.getElementById("taskFormContainer");
+  const projectList = document.getElementById("projectList");
+  const taskForm = document.getElementById("taskForm");
   const taskArea = document.getElementById("taskAreaContent");
+  const select = document.getElementById("selectProject");
 
-  //*Put this out in DOMUTILS*/
+  //DOM Utils
 
   const createDeleteBtn = () => {
     let deleteBtn = document.createElement("button");
@@ -41,7 +40,6 @@ export async function initDynamicContent() {
   };
 
   const displayTask = (task) => {
-
     let taskContainer = document.createElement("div");
     taskContainer.classList.add("taskContainer");
     taskArea.appendChild(taskContainer);
@@ -66,109 +64,89 @@ export async function initDynamicContent() {
     }
   };
 
-  const clearProjectsTasks = () => {
+  const clearProjectTasks = () => {
     taskArea.textContent = "";
   };
 
   const deleteNode = (id) => {
     let element = document.getElementById(id);
     element.remove();
-  }
+  };
 
-
-  //END DOMUtils
-  const displayProjectwithTasks = (project) => {
-    clearProjectsTasks();
+  const displayProjectWithTasks = (project) => {
+    clearProjectTasks();
     displayProject(project);
     displayTasks(project);
   };
 
-  // Populate form fields
-  let select = document.getElementById("selectProject");
+  //END DOMUtils
 
-  const clearProjectOptions = () => {
-    select.textContent = "";
-  };
-
-  const displayProjectOptions = () => {
-//Skip All Projects at Index 0
-    for (let i = 1; i < allProjects.length; i++) {
-      let project = allProjects[i];
-      let projectOption = document.createElement("option");
-      projectOption.textContent = project.name;
-      projectOption.value = i;
-      select.appendChild(projectOption);
-    }
-  };
-
-  //Hadle event listeners
-
-  const newTaskButton = document.getElementById("newTaskButton");
-  const taskFormCloseButton = document.getElementById("taskFormClose");
-  const taskFormContainer = document.getElementById("taskFormContainer");
-  const projectList = document.getElementById("projectList");
-  const taskForm = document.getElementById("taskForm");
-
-  //Task Form
-
-  newTaskButton.addEventListener("click", () => {
-    taskFormContainer.classList.remove("hidden");
-    clearProjectOptions();
-    displayProjectOptions();
-  });
-
-  taskFormCloseButton.addEventListener("click", () => {
-    taskFormContainer.classList.add("hidden");
-  });
-
-  document.addEventListener("click", function (event) {
-    if (event.target.classList.contains('deleteBtn')) {
-        fullDeleteTask(event.target.parentNode.id);
-        deleteNode(event.target.parentNode.id);
-    }
-  });
+  //On new load, auto display new tasks
+  displayProjectWithTasks(allProjects[0]);
 
   //Display project info after clicking on each page
-
   projectList.addEventListener("click", function (event) {
     if (event.target.tagName === "LI") {
       let projectName = event.target.innerText;
       let projectIndex = allProjects.findIndex(
         (project) => project.name == projectName
       );
-      displayProjectwithTasks(allProjects[projectIndex]);
+      displayProjectWithTasks(allProjects[projectIndex]);
     }
   });
 
-  //Put in non-GUI section?
-  const addTasktoProject = (task) => {
-    let selectProject = document.getElementById("selectProject").value;
-    allProjects[selectProject].tasks.push(task);
-    displayProjectwithTasks(allProjects[selectProject]);
+  //Main Content Listeners
+
+  document.addEventListener("click", function (event) {
+    if (event.target.classList.contains("deleteBtn")) {
+      fullDeleteTask(event.target.parentNode.id);
+      deleteNode(event.target.parentNode.id);
+    }
+  });
+
+  // Forms
+  //Generate Form Fields
+  const formClearProjectOptions = () => {
+    select.textContent = "";
   };
 
-  //Combine this with project listener?
-  //Add function to re-create project on submission
-  
-  //Steps for listener:
-  //1. Create new task
-  //2. Add Task to Project (can this be done as part of create task?)
-  //3. Update sotrage
-  //4. Re-load page
+  const formDisplayProjectOptions = () => {
+    //skips All Projects at Index 0
+    for (let i = 1; i < allProjects.length; i++) {
+      let projectOption = document.createElement("option");
+      projectOption.textContent = allProjects[i].name;
+      projectOption.value = i;
+      select.appendChild(projectOption);
+    }
+  };
+
+  //Task Form
+  newTaskButton.addEventListener("click", () => {
+    taskFormContainer.classList.remove("hidden");
+    formClearProjectOptions();
+    formDisplayProjectOptions();
+  });
+
+  taskFormCloseButton.addEventListener("click", () => {
+    taskFormContainer.classList.add("hidden");
+  });
+
+  const formHandleSelectedProject = (task) => {
+    let selectProject = document.getElementById("selectProject").value;
+    addTaskToArray(allProjects[selectProject].tasks, task);
+    displayProjectWithTasks(allProjects[selectProject]);
+  };
 
   taskForm.addEventListener("submit", (event) => {
     event.preventDefault();
     let taskName = document.getElementById("taskName").value;
     let taskDescription = document.getElementById("taskDescription").value;
     createTask(taskName, taskDescription);
-    addTasktoProject(allTasks[allTasks.length - 1]);
-    populateStorage();
+    formHandleSelectedProject(allTasks[allTasks.length - 1]);
   });
-
-  //On new load, auto display new tasks 
-  displayProjectwithTasks(allProjects[0]);
-
+  //End Forms
 }
+//end initDynamicContent
 
 export const addProjectLink = (project) => {
   let projectLink = document.createElement("li");
@@ -186,6 +164,3 @@ export const addProjectLink = (project) => {
 //Display all projects in sidebar from array````````
 //Display array of all tasks on right content area
 //Display project: Name, description, display array of tasks
-
-//Close form modals when button is presed
-

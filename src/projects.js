@@ -5,7 +5,7 @@ import { getStoredProjects } from "./helpers";
 export let allProjects = [];
 export async function updateProjects() {
   await getStoredProjects;
-allProjects = getStoredProjects();
+  allProjects = getStoredProjects();
 }
 
 class Project {
@@ -25,10 +25,6 @@ export const createProject = (name, description, tasks) => {
   allProjects.push(project);
   addProjectLink(project);
 };
-
-
-
-
 
 //Function to create project class
 //Name, description, tas
