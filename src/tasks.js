@@ -30,7 +30,6 @@ export const addTaskToArray = (array, task) => {
 
 const deleteTaskFromArray = (array, taskId) => {
   let index = findById(array, taskId);
-  console.log(index);
   if (index > -1) {
     array.splice(index, 1);
   }
@@ -39,7 +38,6 @@ const deleteTaskFromArray = (array, taskId) => {
 export const fullDeleteTask = (id) => {
   deleteTaskFromArray(allTasks, id);
   for (const project of allProjects) {
-    console.log(project);
     deleteTaskFromArray(project.tasks, id);
   }
   updateStorage();

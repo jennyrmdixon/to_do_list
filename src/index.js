@@ -7,7 +7,7 @@ createProject("Test Project", "An unfiltered view of all tasks", []);
 createProject("Test Project 2", "An unfiltered view of all tasks", []);
 updateProjects();
 
-import { initDynamicContent } from "./gui.js";
+import { initDynamicContent, initForms } from "./gui.js";
 
 //Wait for allTasks to poulate before loading content
 document.addEventListener("DOMContentLoaded", function () {
@@ -16,8 +16,8 @@ document.addEventListener("DOMContentLoaded", function () {
       allProjects[0].tasks = allTasks;
       clearInterval(checkAllTasks);
       initDynamicContent();
+      initForms();
     }
   }, 100); // Check every 100 milliseconds
 });
-
 

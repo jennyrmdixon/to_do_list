@@ -1,85 +1,82 @@
 import { allTasks, createTask, addTaskToArray, fullDeleteTask } from "./tasks";
 import { allProjects } from "./projects";
 
+const taskArea = document.getElementById("taskAreaContent");
+
+
+//DOM Utils
+
+const createDeleteBtn = () => {
+  let deleteBtn = document.createElement("button");
+  deleteBtn.textContent = "Delete";
+  deleteBtn.classList.add("deleteBtn");
+  return deleteBtn;
+};
+
+const createEditBtn = () => {
+  let editBtn = document.createElement("button");
+  editBtn.textContent = "Edit";
+  return editBtn;
+};
+
+const displayProject = (project) => {
+  let projectContainer = document.createElement("div");
+  projectContainer.classList.add("projectContainer");
+  taskArea.appendChild(projectContainer);
+
+  let projectName = document.createElement("h2");
+  projectName.textContent = project.name;
+  projectContainer.appendChild(projectName);
+
+  let projectDescription = document.createElement("p");
+  projectDescription.textContent = project.description;
+  projectContainer.appendChild(projectDescription);
+};
+
+const displayTask = (task) => {
+  let taskContainer = document.createElement("div");
+  taskContainer.classList.add("taskContainer");
+  taskArea.appendChild(taskContainer);
+
+  let taskName = document.createElement("h3");
+  taskName.textContent = task.name;
+  taskContainer.appendChild(taskName);
+
+  let taskDescription = document.createElement("p");
+  taskDescription.textContent = task.description;
+  taskContainer.appendChild(taskDescription);
+
+  taskContainer.setAttribute("id", task.id);
+
+  taskContainer.appendChild(createDeleteBtn());
+  taskContainer.appendChild(createEditBtn());
+};
+
+const displayTasks = (project) => {
+  for (let i = 0; i < project.tasks.length; i++) {
+    displayTask(project.tasks[i]);
+  }
+};
+
+const clearProjectTasks = () => {
+  taskArea.textContent = "";
+};
+
+const deleteNode = (id) => {
+  let element = document.getElementById(id);
+  element.remove();
+};
+
+const displayProjectWithTasks = (project) => {
+  clearProjectTasks();
+  displayProject(project);
+  displayTasks(project);
+};
+
+//END DOMUtils
+
 export function initDynamicContent() {
-  const newTaskButton = document.getElementById("newTaskButton");
-  const taskFormCloseButton = document.getElementById("taskFormClose");
-  const taskFormContainer = document.getElementById("taskFormContainer");
   const projectList = document.getElementById("projectList");
-  const taskForm = document.getElementById("taskForm");
-  const taskArea = document.getElementById("taskAreaContent");
-  const select = document.getElementById("selectProject");
-
-  //DOM Utils
-
-  const createDeleteBtn = () => {
-    let deleteBtn = document.createElement("button");
-    deleteBtn.textContent = "Delete";
-    deleteBtn.classList.add("deleteBtn");
-    return deleteBtn;
-  };
-
-  const createEditBtn = () => {
-    let editBtn = document.createElement("button");
-    editBtn.textContent = "Edit";
-    return editBtn;
-  };
-
-  const displayProject = (project) => {
-    let projectContainer = document.createElement("div");
-    projectContainer.classList.add("projectContainer");
-    taskArea.appendChild(projectContainer);
-
-    let projectName = document.createElement("h2");
-    projectName.textContent = project.name;
-    projectContainer.appendChild(projectName);
-
-    let projectDescription = document.createElement("p");
-    projectDescription.textContent = project.description;
-    projectContainer.appendChild(projectDescription);
-  };
-
-  const displayTask = (task) => {
-    let taskContainer = document.createElement("div");
-    taskContainer.classList.add("taskContainer");
-    taskArea.appendChild(taskContainer);
-
-    let taskName = document.createElement("h3");
-    taskName.textContent = task.name;
-    taskContainer.appendChild(taskName);
-
-    let taskDescription = document.createElement("p");
-    taskDescription.textContent = task.description;
-    taskContainer.appendChild(taskDescription);
-
-    taskContainer.setAttribute("id", task.id);
-
-    taskContainer.appendChild(createDeleteBtn());
-    taskContainer.appendChild(createEditBtn());
-  };
-
-  const displayTasks = (project) => {
-    for (let i = 0; i < project.tasks.length; i++) {
-      displayTask(project.tasks[i]);
-    }
-  };
-
-  const clearProjectTasks = () => {
-    taskArea.textContent = "";
-  };
-
-  const deleteNode = (id) => {
-    let element = document.getElementById(id);
-    element.remove();
-  };
-
-  const displayProjectWithTasks = (project) => {
-    clearProjectTasks();
-    displayProject(project);
-    displayTasks(project);
-  };
-
-  //END DOMUtils
 
   //On new load, auto display new tasks
   displayProjectWithTasks(allProjects[0]);
@@ -104,7 +101,18 @@ export function initDynamicContent() {
     }
   });
 
-  // Forms
+
+}
+//end initDynamicContent
+
+
+export function initForms() {
+  const newTaskButton = document.getElementById("newTaskButton");
+  const taskFormCloseButton = document.getElementById("taskFormClose");
+  const taskFormContainer = document.getElementById("taskFormContainer");
+  const taskForm = document.getElementById("taskForm");
+  const select = document.getElementById("selectProject");
+
   //Generate Form Fields
   const formClearProjectOptions = () => {
     select.textContent = "";
@@ -144,9 +152,7 @@ export function initDynamicContent() {
     createTask(taskName, taskDescription);
     formHandleSelectedProject(allTasks[allTasks.length - 1]);
   });
-  //End Forms
 }
-//end initDynamicContent
 
 export const addProjectLink = (project) => {
   let projectLink = document.createElement("li");
