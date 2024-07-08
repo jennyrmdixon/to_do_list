@@ -9,9 +9,10 @@ updateProjects();
 
 import { initDynamicContent, initForms } from "./gui.js";
 
-//Wait for allTasks to poulate before loading content
+//Wait for allTasks to poulate before loading content and forms
+//Troubleshoot here: task not being save to project, and not loading?
 document.addEventListener("DOMContentLoaded", function () {
-  var checkAllTasks = setInterval(function () {
+  let checkAllTasks = setInterval(function () {
     if (localStorage.allTasks === JSON.stringify(allTasks)) {
       allProjects[0].tasks = allTasks;
       clearInterval(checkAllTasks);
@@ -20,4 +21,5 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }, 100); // Check every 100 milliseconds
 });
+
 

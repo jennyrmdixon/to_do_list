@@ -26,6 +26,7 @@ if (!localStorage.allTasks) {
 
 export const addTaskToArray = (array, task) => {
   array.push(task);
+  updateStorage();
 }
 
 const deleteTaskFromArray = (array, taskId) => {
