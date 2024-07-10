@@ -43,4 +43,27 @@ export const fullDeleteTask = (id) => {
   }
   updateStorage();
 };
+ 
+//In progress 
+
+const editTaskName = (task, name) => {
+  task.name = name;
+}
+
+const editTaskDescription = (task, description) => {
+  task.name = description;
+}
+
+export const editTask = (id, name, description) => {
+  let index = findById(allTasks, id);
+  if (name) {
+  editTaskName(allTasks[index], name);
+  }
+  if (description) {
+  editTaskDescription(allTasks[index], description);
+  }
+  updateStorage();
+}
+
+
 

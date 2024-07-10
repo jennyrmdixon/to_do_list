@@ -1,4 +1,4 @@
-import { allTasks, createTask, addTaskToArray, fullDeleteTask } from "./tasks";
+import { allTasks, createTask, addTaskToArray, fullDeleteTask, editTask } from "./tasks";
 import { allProjects } from "./projects";
 
 const taskArea = document.getElementById("taskAreaContent");
@@ -16,6 +16,7 @@ const createDeleteBtn = () => {
 const createEditBtn = () => {
   let editBtn = document.createElement("button");
   editBtn.textContent = "Edit";
+  editBtn.classList.add("editBtn");
   return editBtn;
 };
 
@@ -108,10 +109,16 @@ export function initDynamicContent() {
 
 export function initForms() {
   const newTaskButton = document.getElementById("newTaskButton");
-  const taskFormCloseButton = document.getElementById("taskFormClose");
+  ////make this a node list of all close buttons, also edit html file with similar tasks - do this last
+  //Edit html file to include a close button
+  const taskFormCloseBtn = document.getElementById("taskFormClose");
   const taskFormContainer = document.getElementById("taskFormContainer");
   const taskForm = document.getElementById("taskForm");
+  const editTaskFormContainer = document.getElementById("editTaskFormContainer");
+  const editTaskForm = document.getElementById("editTaskForm");
+  const editTaskFormCloseBtn = document.getElementById("editTaskFormClose");
   const select = document.getElementById("selectProject");
+  let isFormShown = false;
 
   //Generate Form Fields
   const formClearProjectOptions = () => {
@@ -128,22 +135,58 @@ export function initForms() {
     }
   };
 
-  //Task Form
+  ////combined handle ProjectOptions function - do this last
+ const hideForm = (form) => {
+  form.classList.add("hidden");
+    isFormShown = false
+ }
+
+ const showForm = (form) => {
+  form.classList.remove("hidden");
+  isFormShown = true;
+ }
+
+ //last - consolodate projects options
+
   newTaskButton.addEventListener("click", () => {
-    taskFormContainer.classList.remove("hidden");
+    if (!isFormShown){
     formClearProjectOptions();
     formDisplayProjectOptions();
+    showForm(taskFormContainer);
+  }
   });
 
-  taskFormCloseButton.addEventListener("click", () => {
-    taskFormContainer.classList.add("hidden");
+  document.addEventListener("click", function (event) {
+    if (event.target.classList.contains("editBtn")) {
+      if (!isFormShown){
+         showForm(editTaskFormContainer)
+      }
+    }
   });
+
+  //Troubleshoot close behavior for having multiple forms open at once
+  /////Edit this to attach to any close button? - do this last
+  taskFormCloseBtn.addEventListener("click", () => {
+    if (isFormShown){
+  hideForm(taskFormContainer);
+  }
+  });
+
+  editTaskFormCloseBtn.addEventListener("click", () => {
+    if (isFormShown){
+  hideForm(editTaskFormContainer);
+  }
+  });
+
+//copy for now
 
   const formHandleSelectedProject = (task) => {
     let selectProject = document.getElementById("selectProject").value;
     addTaskToArray(allProjects[selectProject].tasks, task);
     displayProjectWithTasks(allProjects[selectProject]);
   };
+
+  ////Make fucntion to get task name, description, return as parameters? Do this last
 
   taskForm.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -152,6 +195,13 @@ export function initForms() {
     createTask(taskName, taskDescription);
     formHandleSelectedProject(allTasks[allTasks.length - 1]);
   });
+
+
+  //Make a new listener for submit of edit form
+  //get task name , task description 
+  //run edit task function
+
+  //Edit Task Form
 }
 
 export const addProjectLink = (project) => {

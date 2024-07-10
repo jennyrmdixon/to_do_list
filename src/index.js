@@ -9,8 +9,6 @@ updateProjects();
 
 import { initDynamicContent, initForms } from "./gui.js";
 
-//Wait for allTasks to poulate before loading content and forms
-//Troubleshoot here: task not being save to project, and not loading?
 document.addEventListener("DOMContentLoaded", function () {
   let checkAllTasks = setInterval(function () {
     if (localStorage.allTasks === JSON.stringify(allTasks)) {
@@ -23,3 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
+/* July 13 - Test open/close behaviorm
+Process task edit form 
+Weight pros and cons of additional notes added to gui.js
+*/
