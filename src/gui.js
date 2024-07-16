@@ -117,7 +117,9 @@ export function initForms() {
   const editTaskFormContainer = document.getElementById("editTaskFormContainer");
   const editTaskForm = document.getElementById("editTaskForm");
   const editTaskFormCloseBtn = document.getElementById("editTaskFormClose");
+  //Improve variable
   const select = document.getElementById("selectProject");
+  const taskIdField = document.getElementById('editTaskId');
   let isFormShown = false;
 
   //Generate Form Fields
@@ -134,6 +136,11 @@ export function initForms() {
       select.appendChild(projectOption);
     }
   };
+
+const addIdToForm = (id, formField) => {
+  formField.setAttribute("value", id);
+}
+
 
   ////combined handle ProjectOptions function - do this last
  const hideForm = (form) => {
@@ -159,7 +166,8 @@ export function initForms() {
   document.addEventListener("click", function (event) {
     if (event.target.classList.contains("editBtn")) {
       if (!isFormShown){
-         showForm(editTaskFormContainer)
+        addIdToForm(event.srcElement.parentNode.id, taskIdField);
+         showForm(editTaskFormContainer);
       }
     }
   });
@@ -186,6 +194,7 @@ export function initForms() {
     displayProjectWithTasks(allProjects[selectProject]);
   };
 
+
   ////Make fucntion to get task name, description, return as parameters? Do this last
 
   taskForm.addEventListener("submit", (event) => {
@@ -195,6 +204,15 @@ export function initForms() {
     createTask(taskName, taskDescription);
     formHandleSelectedProject(allTasks[allTasks.length - 1]);
   });
+
+  editTaskForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    let taskId = document.getElementById("editTaskId").value;
+    let taskName = document.getElementById("editTaskName").value;
+    let taskDescription = document.getElementById("editTaskDescription").value;
+    editTask(taskId, taskName, taskDescription);
+  });
+
 
 
   //Make a new listener for submit of edit form

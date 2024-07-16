@@ -17,6 +17,7 @@ class Task {
 export const createTask = (name, description) => {
   let task = new Task(name, description);
   allTasks.push(task);
+  console.log(task);
   updateStorage();
 };
 
@@ -38,29 +39,31 @@ const deleteTaskFromArray = (array, taskId) => {
 
 export const fullDeleteTask = (id) => {
   deleteTaskFromArray(allTasks, id);
-  for (const project of allProjects) {
+  for (let project of allProjects) {
     deleteTaskFromArray(project.tasks, id);
   }
   updateStorage();
 };
- 
-//In progress 
 
-const editTaskName = (task, name) => {
-  task.name = name;
-}
 
-const editTaskDescription = (task, description) => {
-  task.name = description;
-}
 
-export const editTask = (id, name, description) => {
-  let index = findById(allTasks, id);
-  if (name) {
-  editTaskName(allTasks[index], name);
+const editTaskInProject = (id, name, description, projectTasks) => {
+  let task = projectTasks.find(task => task.id === id);
+  // If the task is found, update its properties
+  if (task) {
+    if (name) {
+      task.name = name;
+    }
+    if (description) {
+      task.description = description;
+    }
   }
-  if (description) {
-  editTaskDescription(allTasks[index], description);
+
+}
+ 
+export const editTask = (id, name, description) => {
+  for (let project of allProjects){
+    editTaskInProject(id, name, description, project.tasks);
   }
   updateStorage();
 }

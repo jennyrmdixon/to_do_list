@@ -21,7 +21,3 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-/* July 13 - Test open/close behaviorm
-Process task edit form 
-Weight pros and cons of additional notes added to gui.js
-*/
