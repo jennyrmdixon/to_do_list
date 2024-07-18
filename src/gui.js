@@ -1,5 +1,6 @@
 import { allTasks, createTask, addTaskToArray, fullDeleteTask, editTask } from "./tasks";
 import { allProjects } from "./projects";
+import { findById } from "./helpers";
 
 const taskArea = document.getElementById("taskAreaContent");
 
@@ -109,18 +110,29 @@ export function initDynamicContent() {
 
 export function initForms() {
   const newTaskButton = document.getElementById("newTaskButton");
+  const select = document.getElementById("selectProject");
+  let isFormShown = false;
   ////make this a node list of all close buttons, also edit html file with similar tasks - do this last
+  
   //Edit html file to include a close button
+  //Task Form
   const taskFormCloseBtn = document.getElementById("taskFormClose");
   const taskFormContainer = document.getElementById("taskFormContainer");
   const taskForm = document.getElementById("taskForm");
+  
+  //Improve variables
+
+  //Edit task form
+  let editTaskId = document.getElementById("editTaskId");
+  let editTaskName = document.getElementById("editTaskName");
+  let editTaskDescription = document.getElementById("editTaskDescription");
+
   const editTaskFormContainer = document.getElementById("editTaskFormContainer");
   const editTaskForm = document.getElementById("editTaskForm");
   const editTaskFormCloseBtn = document.getElementById("editTaskFormClose");
-  //Improve variable
-  const select = document.getElementById("selectProject");
   const taskIdField = document.getElementById('editTaskId');
-  let isFormShown = false;
+
+
 
   //Generate Form Fields
   const formClearProjectOptions = () => {
@@ -137,8 +149,11 @@ export function initForms() {
     }
   };
 
-const addIdToForm = (id, formField) => {
-  formField.setAttribute("value", id);
+const autofillEditForm = (taskId) => {
+   let origTask = findById(allTasks, taskId);
+   editTaskId.value = allTasks[origTask].id;
+   editTaskName.value = allTasks[origTask].name;
+   editTaskDescription.value = allTasks[origTask].description
 }
 
 
@@ -166,13 +181,12 @@ const addIdToForm = (id, formField) => {
   document.addEventListener("click", function (event) {
     if (event.target.classList.contains("editBtn")) {
       if (!isFormShown){
-        addIdToForm(event.srcElement.parentNode.id, taskIdField);
+        autofillEditForm(event.srcElement.parentNode.id);
          showForm(editTaskFormContainer);
       }
     }
   });
 
-  //Troubleshoot close behavior for having multiple forms open at once
   /////Edit this to attach to any close button? - do this last
   taskFormCloseBtn.addEventListener("click", () => {
     if (isFormShown){
@@ -206,14 +220,12 @@ const addIdToForm = (id, formField) => {
   });
 
   editTaskForm.addEventListener("submit", (event) => {
+ 
     event.preventDefault();
-    let taskId = document.getElementById("editTaskId").value;
-    let taskName = document.getElementById("editTaskName").value;
-    let taskDescription = document.getElementById("editTaskDescription").value;
-    editTask(taskId, taskName, taskDescription);
+    editTask(editTaskId.value, editTaskName.value, editTaskDescription.value);
+    //Revisit to keep on the same screen
+    location.reload();
   });
-
-
 
   //Make a new listener for submit of edit form
   //get task name , task description 
