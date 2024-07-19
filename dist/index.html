@@ -3,10 +3,14 @@
   <head>
     <meta charset="utf-8" />
     <title>To-Do List</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sen:wght@400..800&display=swap" rel="stylesheet">
   <script defer src="main.js"></script></head>
   <body>
     <div class="form-popup, hidden" id="taskFormContainer">
       <form action="" method= "get" id="taskForm">
+        <h3>Create New Task</h3>
         <label for="taskName">Name</label>
         <input type="text" id="taskName" name="taskName"><br>
         <label for="taskDescription">Description</label>
@@ -19,10 +23,9 @@
       </form>
 </div>
 
-<!--In progress, can this be combined with the same form as above?-->
 <div class="form-popup, hidden" id="editTaskFormContainer">
   <form action="" method= "get" id="editTaskForm">
-    <!---Autofill here-->
+    <h3>Edit Task</h3>
     <input type="hidden" id="editTaskId" name="taskId" value="">
     <label for="taskName">Name</label>
     <input type="text" id="editTaskName" name="taskName"><br>
@@ -34,15 +37,19 @@
   </form>
 </div>
   
-      
-    <div id="wrapper">
+  <div id ="container">
+    <div id ="wrapper">
+      <div id="taskAreaHeader"><h1>My To-Dos</h1><button id="newTaskButton">New Task</button></div>
+    <div id="mainContent">
         <div id="sidebar">
+          <h4>Projects</h4>
           <ul id="projectList">
           </ul>
           </div>
           <div id="taskArea">
-            <div id="taskAreaHeader"><h1>My To-Dos</h1><div id="newTaskButton"><button>New Task</button></div></div>
             <div id="taskAreaContent">
             </div>
           </div>
+        </div>
+      </div>
      </div>
