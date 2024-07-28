@@ -69,48 +69,98 @@ select {
 
 /*End Reset Code*/
 
-
+/*Global and Shared Styles*/
 :root {
-  --black: #070600;
-  --white: #f7f7ff;
-  --grey: #dadada;
-  --pink: #ea526f;
-  --cyan: #23b5d3;
+  --color1: #ca5c54;
+  --color2: #154c79;
   font-family: "Sen", sans-serif;
+}
+
+html {
+  min-height: 100%;
+  position: relative;
 }
 
 body {
   background-color: var(--white);
-}
+  height: 100%;
 
-#taskForm, #editTaskForm {
-  position: absolute;
-  top: 30%;
-  right: 30%;
-  border: 3px solid var(--grey);
-  background-color: var(--white);
-  z-index: 10;
 }
 
 .hidden {
   display: none;
 }
 
-#sidebar {
-border-right: 2px solid grey;
+/*Forms*/
+#taskFormContainer, #editTaskFormContainer {
+  background-color: rgba(0, 0, 0, 0.178);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
+#taskForm, #editTaskForm {
+  position: absolute;
+  left: 50%;
+  top: 30%;
+  transform: translate(-50%, 0);
+  border: 2px solid grey;
+  z-index: 10;
+  padding: 15px;
+  width: 350px;
+  background-color: white;
+}
+
+form h3 {
+  margin-top: 25px;
+}
+
+.XForm {
+  position: absolute;
+  right: 5px;
+  top: 3px;
+  color: var(--color1)
+}
+
+input, select, textarea {
+  width: 100%;
+  clear: both;
+  border: 1px grey solid;
+  padding: 5px;
+}
+
+textarea {
+  resize: vertical;
+}
+
+select {
+  background-color: white;
+}
+
+.formFields label {
+  margin-top: 10px;
+  display: inline-block;
+}
+
+
+/*Main Page Layout*/
+
+#sidebar {
+  border-right: 2px solid grey;
+}
 
 #container {
   padding: 50px;
   background-color: #070600;
   background: url('./sunset_background.jpg');
   background-size: cover;
-
 }
 
 #wrapper {
   background-color: rgba(255, 255, 255, 0.95);
+  border: 2px solid grey;
 }
 
 #sidebar, #taskArea {
@@ -133,23 +183,6 @@ border-right: 2px solid grey;
   align-items: center;
 }
 
-#newTaskButton {
-  position: absolute;
-  right: 80px;
-  z-index: 5;
-  background-color:#ca5c54;
-  color:white;
-  padding: 5px 3px;
-}
-
-#taskList {
-  background-color: var(--pink);
-}
-
-#taskExpand {
-  background-color: var(--cyan);
-}
-
 .projectContainer p {
   margin-bottom: 20px;
 }
@@ -159,17 +192,42 @@ border-right: 2px solid grey;
   padding: 5px;
 }
 
+
+/*Buttons and Links*/
+
 button {
   background-color: rgba(255, 255, 255, 0);
-  color: #ca5c54;
   border: none;
   font-weight: bold;
   margin: 5px 0;
-
 }
-/* 
-.deleteBtn {
-  color: #6d404f;
 
-} */
+li.projectLink, button {
+  color: var(--color1);
+}
 
+li.projectLink:hover, button:hover {
+  color: var(--color2)
+}
+
+#newTaskButton, button[type="submit"] {
+  background-color: var(--color1);
+  color: white;
+  padding: 5px 8px;
+  z-index: 5;
+}
+
+#newTaskButton {
+  position: absolute;
+  right: 80px;
+}
+
+#newTaskButton:hover, button[type="submit"]:hover {
+  background-color: var(--color2);
+  color: white;
+}
+
+
+button[type="submit"] {
+  margin-top: 20px;
+}

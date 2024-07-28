@@ -9,31 +9,30 @@
   </head>
   <body>
     <div class="form-popup, hidden" id="taskFormContainer">
-      <form action="" method= "get" id="taskForm">
-        <h3>Create New Task</h3>
-        <label for="taskName">Name</label>
-        <input type="text" id="taskName" name="taskName"><br>
-        <label for="taskDescription">Description</label>
-        <input type="text" id="taskDescription" name="taskDescription"><br>
-        <label for="selectProject">Project</label>
-       <select id="selectProject" name="selectProject"><br> 
-       </select>
+      <form method= "get" id="taskForm">
+        <button type="button" class="XForm" id="taskFormClose">X</button>
+          <h3>Create New Task</h3>
+            <label for="taskName">Name</label>
+            <input type="text" id="taskName" name="taskName">
+            <label for="taskDescription">Description</label><br>
+            <textarea id="taskDescription" name="taskDescription"></textarea>
+            <label for="selectProject">Project</label>
+                   <select id="selectProject" name="selectProject">
+                   </select>
         <button type="submit">Submit</button>
-        <button type="button" id="taskFormClose">Close</button>
       </form>
 </div>
 
 <div class="form-popup, hidden" id="editTaskFormContainer">
-  <form action="" method= "get" id="editTaskForm">
+  <form method= "get" id="editTaskForm">
+    <button type="button" class="XForm"  id="editTaskFormClose">X</button>
     <h3>Edit Task</h3>
     <input type="hidden" id="editTaskId" name="taskId" value="">
-    <label for="taskName">Name</label>
-    <input type="text" id="editTaskName" name="taskName"><br>
-    <label for="taskDescription">Description</label>
-    <input type="text" id="editTaskDescription" name="taskDescription"><br>
-   </select>
+      <label for="taskName">Name</label>
+      <input type="text" id="editTaskName" name="taskName">
+      <label for="taskDescription">Description</label>
+      <textarea id="editTaskDescription" name="taskDescription"></textarea>
     <button type="submit">Submit</button>
-    <button type="button" id="editTaskFormClose">Close</button>
   </form>
 </div>
   
@@ -53,3 +52,5 @@
         </div>
       </div>
      </div>
+     </body>
+     </html>
