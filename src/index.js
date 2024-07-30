@@ -1,4 +1,5 @@
 import "./style.css";
+import favicon from './sun_favicon.png';
 import { allTasks } from "./tasks";
 import { createProject, updateProjects, allProjects } from "./projects.js";
 
