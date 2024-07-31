@@ -17,7 +17,6 @@ class Task {
 export const createTask = (name, description) => {
   let task = new Task(name, description);
   allTasks.push(task);
-  console.log(task);
   updateStorage();
 };
 

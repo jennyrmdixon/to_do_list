@@ -156,15 +156,20 @@ select {
   background-color: #070600;
   background: url('./sunset_background.jpg');
   background-size: cover;
+  height: 100vh;
 }
 
 #wrapper {
   background-color: rgba(255, 255, 255, 0.95);
   border: 2px solid grey;
+  max-height: 90vh;
+  overflow: clip;
 }
 
 #sidebar, #taskArea {
   padding: 30px;
+  overflow: auto;
+  height: calc(90vh - 35px);
 }
 
 #mainContent {

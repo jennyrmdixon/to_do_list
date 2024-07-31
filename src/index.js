@@ -1,14 +1,13 @@
 import "./style.css";
-import favicon from './sun_favicon.png';
 import { allTasks } from "./tasks";
 import { createProject, updateProjects, allProjects } from "./projects.js";
+import { initDynamicContent } from "./gui.js";
+import { initForms } from "./forms";
 
 createProject("All Tasks", "An unfiltered view of all tasks", allTasks);
 createProject("Test Project", "An unfiltered view of all tasks", []);
 createProject("Test Project 2", "An unfiltered view of all tasks", []);
 updateProjects();
-
-import { initDynamicContent, initForms } from "./gui.js";
 
 document.addEventListener("DOMContentLoaded", function () {
   let checkAllTasks = setInterval(function () {
