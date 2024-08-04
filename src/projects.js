@@ -16,7 +16,6 @@ class Project {
   }
 }
 
-//Revisit to remove export
 export const createProject = (name, description, tasks) => {
   if (!Array.isArray(tasks)) {
     tasks = [tasks];
@@ -26,10 +25,3 @@ export const createProject = (name, description, tasks) => {
   addProjectLink(project);
 }
 
-//Function to create project class
-//Name, description, tas
-//Create first class "All"
-
-//Listen for form to submit new project
-//Listen for form to edit project
-//Listent for button to delete project

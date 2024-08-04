@@ -5,7 +5,6 @@ const taskArea = document.getElementById("taskAreaContent");
 
 
 //DOM Utils
-
 const createDeleteBtn = () => {
   let deleteBtn = document.createElement("button");
   deleteBtn.textContent = "Delete";
@@ -94,7 +93,6 @@ export function initDynamicContent() {
   });
 
   //Main Content Listeners
-
   document.addEventListener("click", function (event) {
     if (event.target.classList.contains("deleteBtn")) {
       fullDeleteTask(event.target.parentNode.id);
