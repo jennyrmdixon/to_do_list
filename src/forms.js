@@ -8,9 +8,8 @@ export function initForms() {
     const newTaskButton = document.getElementById("newTaskButton");
     const select = document.getElementById("selectProject");
     let isFormShown = false;
-    ////make this a node list of all close buttons, also edit html file with similar tasks - do this last
-    
-    //Edit html file to include a close button
+    const closeBtns =  document.getElementsByClassName("closeBtn");
+
     //Task Form
     const taskFormCloseBtn = document.getElementById("taskFormClose");
     const taskFormContainer = document.getElementById("taskFormContainer");
@@ -80,21 +79,13 @@ export function initForms() {
       }
     });
   
-    /////Edit this to attach to any close button? - do this last
-    taskFormCloseBtn.addEventListener("click", () => {
-      if (isFormShown){
-    hideForm(taskFormContainer);
-    }
+    document.addEventListener("click", function (event) {
+      if (event.target.classList.contains("closeBtn")) {
+        hideForm(event.target.parentNode.parentNode);
+      }
     });
-  
-    editTaskFormCloseBtn.addEventListener("click", () => {
-      if (isFormShown){
-    hideForm(editTaskFormContainer);
-    }
-    });
-  
-  //copy for now
-  
+
+    
     const formHandleSelectedProject = (task) => {
       let selectProject = document.getElementById("selectProject").value;
       addTaskToArray(allProjects[selectProject].tasks, task);
