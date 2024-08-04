@@ -8,14 +8,14 @@
 <link href="https://fonts.googleapis.com/css2?family=Sen:wght@400..800&display=swap" rel="stylesheet">
   <link rel="icon" href="sun_favicon.png"><script defer src="main.js"></script></head>
   <body>
-    <div class="form-popup, hidden" id="taskFormContainer">
-      <form method= "get" id="taskForm">
-        <button type="button" class="closeBtn" id="taskFormClose">X</button>
+    <div class="form-popup, hidden" id="newTaskFormCont">
+      <form method= "get" id="newTaskForm">
+        <button type="button" class="closeBtn" id="newTaskFormClose">X</button>
           <h3>Create New Task</h3>
-            <label for="taskName">Name</label>
-            <input type="text" id="taskName" name="taskName">
-            <label for="taskDescription">Description</label><br>
-            <textarea id="taskDescription" name="taskDescription"></textarea>
+            <label for="newTaskName">Name</label>
+            <input type="text" id="newTaskName" name="newTaskName">
+            <label for="newTaskDesc">Description</label><br>
+            <textarea id="newTaskDesc" name="newTaskDesc"></textarea>
             <label for="selectProject">Project</label>
                    <select id="selectProject" name="selectProject">
                    </select>
@@ -23,27 +23,29 @@
       </form>
 </div>
 
-<div class="form-popup, hidden" id="editTaskFormContainer">
+<div class="form-popup, hidden" id="editTaskFormCont">
   <form method= "get" id="editTaskForm">
     <button type="button" class="closeBtn"  id="editTaskFormClose">X</button>
     <h3>Edit Task</h3>
     <input type="hidden" id="editTaskId" name="taskId" value="">
       <label for="taskName">Name</label>
       <input type="text" id="editTaskName" name="taskName">
-      <label for="taskDescription">Description</label>
-      <textarea id="editTaskDescription" name="taskDescription"></textarea>
+      <label for="taskDesc">Description</label>
+      <textarea id="editTaskDesc" name="taskDesc"></textarea>
     <button type="submit">Submit</button>
   </form>
 </div>
   
   <div id ="container">
     <div id ="wrapper">
-      <div id="taskAreaHeader"><h1>My To-Dos</h1><button id="newTaskButton">New Task</button></div>
+      <div id="taskAreaHeader"><h1>My To-Dos</h1><button id="newTaskBtn">New Task</button></div>
     <div id="mainContent">
         <div id="sidebar">
           <h4>Projects</h4>
           <ul id="projectList">
           </ul>
+          <button id="newProjectButton">New Project</button>
+
           </div>
           <div id="taskArea">
             <div id="taskAreaContent">
@@ -52,5 +54,6 @@
         </div>
       </div>
      </div>
+    </div>
      </body>
      </html>
