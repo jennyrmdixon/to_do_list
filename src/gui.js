@@ -28,9 +28,9 @@ const displayProject = (project) => {
   projectName.textContent = project.name;
   projectContainer.appendChild(projectName);
 
-  let projectDescription = document.createElement("p");
-  projectDescription.textContent = project.description;
-  projectContainer.appendChild(projectDescription);
+  let projectDesc = document.createElement("p");
+  projectDesc.textContent = project.desc;
+  projectContainer.appendChild(projectDesc);
 };
 
 const displayTask = (task) => {
@@ -42,9 +42,9 @@ const displayTask = (task) => {
   taskName.textContent = task.name;
   taskContainer.appendChild(taskName);
 
-  let taskDescription = document.createElement("p");
-  taskDescription.textContent = task.description;
-  taskContainer.appendChild(taskDescription);
+  let taskDesc = document.createElement("p");
+  taskDesc.textContent = task.desc;
+  taskContainer.appendChild(taskDesc);
 
   taskContainer.setAttribute("id", task.id);
 
@@ -93,6 +93,7 @@ export function initDynamicContent() {
   });
 
   //Main Content Listeners
+
   document.addEventListener("click", function (event) {
     if (event.target.classList.contains("deleteBtn")) {
       fullDeleteTask(event.target.parentNode.id);

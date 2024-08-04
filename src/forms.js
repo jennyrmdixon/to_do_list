@@ -8,19 +8,22 @@ export function initForms() {
     let isFormShown = false;
 
     //New Task Form Elements
-    const newTaskFormContainer = document.getElementById("taskFormContainer");
-    const newTaskForm = document.getElementById("taskForm");
-    const newTaskButton = document.getElementById("newTaskButton");
+    const newTaskFormCont = document.getElementById("newTaskFormCont");
+    const newTaskForm = document.getElementById("newTaskForm");
+    const newTaskButton = document.getElementById("newTaskBtn");
     const select = document.getElementById("selectProject");
-    let newTaskName = document.getElementById("taskName");
-    let newTaskDescription = document.getElementById("taskDescription");
+    let newTaskName = document.getElementById("newTaskName");
+    let newTaskDesc = document.getElementById("newTaskDesc");
   
     //Edit Task Form Elements
-    const editTaskFormContainer = document.getElementById("editTaskFormContainer");
+    const editTaskFormCont = document.getElementById("editTaskFormCont");
     const editTaskForm = document.getElementById("editTaskForm");
     let editTaskId = document.getElementById("editTaskId");
     let editTaskName = document.getElementById("editTaskName");
-    let editTaskDescription = document.getElementById("editTaskDescription");
+    let editTaskDesc = document.getElementById("editTaskDesc");
+
+    //New Project Form Fields
+    const newProjectButton = document.getElementById("newProjectButton");
 
   
   //Generate Dynmaic Form Content
@@ -41,7 +44,7 @@ export function initForms() {
      let origTask = findById(allTasks, taskId);
      editTaskId.value = allTasks[origTask].id;
      editTaskName.value = allTasks[origTask].name;
-     editTaskDescription.value = allTasks[origTask].description
+     editTaskDesc.value = allTasks[origTask].desc
   }
 
   //Form Helper Functions
@@ -59,7 +62,7 @@ export function initForms() {
     newTaskButton.addEventListener("click", () => {
       if (!isFormShown){
       formRefreshProjectOptions();
-      showForm(newTaskFormContainer);
+      showForm(newTaskFormCont);
     }
     })
   
@@ -67,7 +70,7 @@ export function initForms() {
       if (event.target.classList.contains("editBtn")) {
         if (!isFormShown){
           autofillEditForm(event.srcElement.parentNode.id);
-           showForm(editTaskFormContainer);
+           showForm(editTaskFormCont);
         }
       }
     })
@@ -88,13 +91,13 @@ export function initForms() {
     
     newTaskForm.addEventListener("submit", (event) => {
       event.preventDefault();
-      createTask(newTaskName.value, newTaskDescription.value);
+      createTask(newTaskName.value, newTaskDesc.value);
       formHandleSelectedProject(allTasks[allTasks.length - 1]);
     })
   
     editTaskForm.addEventListener("submit", (event) => {
       event.preventDefault();
-      editTask(editTaskId.value, editTaskName.value, editTaskDescription.value);
+      editTask(editTaskId.value, editTaskName.value, editTaskDesc.value);
       location.reload();
     })
   

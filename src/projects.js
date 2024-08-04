@@ -9,18 +9,18 @@ export async function updateProjects() {
 }
 
 class Project {
-  constructor(name, description, tasks) {
+  constructor(name, desc, tasks) {
     this.name = name;
-    this.description = description;
+    this.desc = desc;
     this.tasks = tasks;
   }
 }
 
-export const createProject = (name, description, tasks) => {
+export const createProject = (name, desc, tasks) => {
   if (!Array.isArray(tasks)) {
     tasks = [tasks];
   }
-  let project = new Project(name, description, tasks);
+  let project = new Project(name, desc, tasks);
   allProjects.push(project);
   addProjectLink(project);
 }

@@ -7,15 +7,15 @@ if (localStorage.allTasks) {
 }
 
 class Task {
-  constructor(name, description) {
+  constructor(name, desc) {
     this.name = name;
-    this.description = description;
+    this.desc = desc;
     this.id = uId();
   }
 }
 
-export const createTask = (name, description) => {
-  let task = new Task(name, description);
+export const createTask = (name, desc) => {
+  let task = new Task(name, desc);
   allTasks.push(task);
   updateStorage();
 };
@@ -46,23 +46,23 @@ export const fullDeleteTask = (id) => {
 
 
 
-const editTaskInProject = (id, name, description, projectTasks) => {
+const editTaskInProject = (id, name, desc, projectTasks) => {
   let task = projectTasks.find(task => task.id === id);
   // If the task is found, update its properties
   if (task) {
     if (name) {
       task.name = name;
     }
-    if (description) {
-      task.description = description;
+    if (desc) {
+      task.desc = desc;
     }
   }
 
 }
  
-export const editTask = (id, name, description) => {
+export const editTask = (id, name, desc) => {
   for (let project of allProjects){
-    editTaskInProject(id, name, description, project.tasks);
+    editTaskInProject(id, name, desc, project.tasks);
   }
   updateStorage();
 }

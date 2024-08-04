@@ -82,7 +82,6 @@ html {
 }
 
 body {
-  background-color: var(--white);
   height: 100%;
 
 }
@@ -92,7 +91,7 @@ body {
 }
 
 /*Forms*/
-#taskFormContainer, #editTaskFormContainer {
+#newTaskFormContainer, #editTaskFormContainer {
   background-color: rgba(0, 0, 0, 0.178);
   position: absolute;
   top: 0;
@@ -101,7 +100,7 @@ body {
   right: 0;
 }
 
-#taskForm, #editTaskForm {
+#newTaskForm, #editTaskForm {
   position: absolute;
   left: 50%;
   top: 30%;
@@ -215,19 +214,19 @@ li.projectLink:hover, button:hover {
   color: var(--color2)
 }
 
-#newTaskButton, button[type="submit"] {
+#newTaskBtn, button[type="submit"]{
   background-color: var(--color1);
   color: white;
   padding: 5px 8px;
   z-index: 5;
 }
 
-#newTaskButton {
+#newTaskBtn {
   position: absolute;
   right: 80px;
 }
 
-#newTaskButton:hover, button[type="submit"]:hover {
+#newTaskButton:hover, button[type="submit"]:hover{
   background-color: var(--color2);
   color: white;
 }
