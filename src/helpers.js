@@ -1,5 +1,5 @@
 import { allTasks } from "./tasks";
-import { allProjects } from "./projects";
+import { allProjs } from "./projects";
 
 export const uId = () => {
   return Date.now().toString(36) + Math.random().toString(36).substr(2);
@@ -11,13 +11,13 @@ export const findById = (array, idNum) => {
 
 export const updateStorage = () => {
   localStorage.setItem("allTasks", JSON.stringify(allTasks));
-  localStorage.setItem("allProjects", JSON.stringify(allProjects));
+  localStorage.setItem("allProjs", JSON.stringify(allProjs));
 };
 
 export const getStoredTasks = () => {
   return JSON.parse(localStorage.allTasks);
 };
 
-export const getStoredProjects = () => {
-  return JSON.parse(localStorage.allProjects);
+export const getStoredProjs = () => {
+  return JSON.parse(localStorage.allProjs);
 };

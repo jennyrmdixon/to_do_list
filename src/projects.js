@@ -1,14 +1,14 @@
 //PROJECTS
-import { addProjectLink } from "./gui";
-import { getStoredProjects } from "./helpers";
+import { addProjLink } from "./gui";
+import { getStoredProjs } from "./helpers";
 
-export let allProjects = [];
-export async function updateProjects() {
-  await getStoredProjects;
-  allProjects = getStoredProjects();
+export let allProjs = [];
+export async function updateProjs() {
+  await getStoredProjs;
+  allProjs = getStoredProjs();
 }
 
-class Project {
+class Proj {
   constructor(name, desc, tasks) {
     this.name = name;
     this.desc = desc;
@@ -16,12 +16,12 @@ class Project {
   }
 }
 
-export const createProject = (name, desc, tasks) => {
+export const createProj = (name, desc, tasks) => {
   if (!Array.isArray(tasks)) {
     tasks = [tasks];
   }
-  let project = new Project(name, desc, tasks);
-  allProjects.push(project);
-  addProjectLink(project);
+  let proj = new Proj(name, desc, tasks);
+  allProjs.push(proj);
+  addProjLink(proj);
 }
 

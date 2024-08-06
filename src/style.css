@@ -91,7 +91,7 @@ body {
 }
 
 /*Forms*/
-#newTaskFormContainer, #editTaskFormContainer {
+#newTaskFormWrap, #editTaskFormWrap {
   background-color: rgba(0, 0, 0, 0.178);
   position: absolute;
   top: 0;
@@ -187,11 +187,11 @@ select {
   align-items: center;
 }
 
-.projectContainer p {
+.projWrap p {
   margin-bottom: 20px;
 }
 
-.taskContainer {
+.taskWrap {
   border-bottom: 1px solid grey;
   padding: 5px;
 }
@@ -206,11 +206,11 @@ button {
   margin: 5px 0;
 }
 
-li.projectLink, button {
+li.projLink, button {
   color: var(--color1);
 }
 
-li.projectLink:hover, button:hover {
+li.projLink:hover, button:hover {
   color: var(--color2)
 }
 

@@ -1,42 +1,42 @@
 
-import { allProjects } from "./projects";
+import { allProjs } from "./projects";
 import { findById } from "./helpers";
 import { allTasks, createTask, addTaskToArray, editTask } from "./tasks";
-import { displayProjectWithTasks } from "./gui";
+import { displayProjWithTasks } from "./gui";
 
 export function initForms() {
     let isFormShown = false;
 
     //New Task Form Elements
-    const newTaskFormCont = document.getElementById("newTaskFormCont");
+    const newTaskFormWrap = document.getElementById("newTaskFormWrap");
     const newTaskForm = document.getElementById("newTaskForm");
     const newTaskButton = document.getElementById("newTaskBtn");
-    const select = document.getElementById("selectProject");
+    const select = document.getElementById("selectProj");
     let newTaskName = document.getElementById("newTaskName");
     let newTaskDesc = document.getElementById("newTaskDesc");
   
     //Edit Task Form Elements
-    const editTaskFormCont = document.getElementById("editTaskFormCont");
+    const editTaskFormWrap = document.getElementById("editTaskFormWrap");
     const editTaskForm = document.getElementById("editTaskForm");
     let editTaskId = document.getElementById("editTaskId");
     let editTaskName = document.getElementById("editTaskName");
     let editTaskDesc = document.getElementById("editTaskDesc");
 
     //New Project Form Fields
-    const newProjectButton = document.getElementById("newProjectButton");
+    const newProjButton = document.getElementById("newProjButton");
 
   
   //Generate Dynmaic Form Content
-    const formRefreshProjectOptions = () => {
+    const formRefreshProjOpts = () => {
        //clear project options 
        select.textContent = "";
        //Write new project options
        //Skips All Projects at Index 0
-       for (let i = 1; i < allProjects.length; i++) {
-         let projectOption = document.createElement("option");
-         projectOption.textContent = allProjects[i].name;
-         projectOption.value = i;
-         select.appendChild(projectOption);
+       for (let i = 1; i < allProjs.length; i++) {
+         let projOpt = document.createElement("option");
+         projOpt.textContent = allProjs[i].name;
+         projOpt.value = i;
+         select.appendChild(projOpt);
        }
     }
   
@@ -61,8 +61,8 @@ export function initForms() {
   //Handle Forms
     newTaskButton.addEventListener("click", () => {
       if (!isFormShown){
-      formRefreshProjectOptions();
-      showForm(newTaskFormCont);
+      formRefreshProjOpts();
+      showForm(newTaskFormWrap);
     }
     })
   
@@ -70,7 +70,7 @@ export function initForms() {
       if (event.target.classList.contains("editBtn")) {
         if (!isFormShown){
           autofillEditForm(event.srcElement.parentNode.id);
-           showForm(editTaskFormCont);
+           showForm(editTaskFormWrap);
         }
       }
     })
@@ -82,17 +82,17 @@ export function initForms() {
     })
 
     
-    const formHandleSelectedProject = (task) => {
-      let selectProject = document.getElementById("selectProject").value;
-      addTaskToArray(allProjects[selectProject].tasks, task);
-      displayProjectWithTasks(allProjects[selectProject]);
+    const formHandleSelectedProj = (task) => {
+      let selectProj = document.getElementById("selectProj").value;
+      addTaskToArray(allProjs[selectProj].tasks, task);
+      displayProjWithTasks(allProjs[selectProj]);
     }
   
     
     newTaskForm.addEventListener("submit", (event) => {
       event.preventDefault();
       createTask(newTaskName.value, newTaskDesc.value);
-      formHandleSelectedProject(allTasks[allTasks.length - 1]);
+      formHandleSelectedProj(allTasks[allTasks.length - 1]);
     })
   
     editTaskForm.addEventListener("submit", (event) => {
