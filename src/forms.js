@@ -10,7 +10,7 @@ export function initForms() {
     //New Task Form Elements
     const newTaskFormWrap = document.getElementById("newTaskFormWrap");
     const newTaskForm = document.getElementById("newTaskForm");
-    const newTaskButton = document.getElementById("newTaskBtn");
+    const newTaskBtn = document.getElementById("newTaskBtn");
     const select = document.getElementById("selectProj");
     let newTaskName = document.getElementById("newTaskName");
     let newTaskDesc = document.getElementById("newTaskDesc");
@@ -23,7 +23,7 @@ export function initForms() {
     let editTaskDesc = document.getElementById("editTaskDesc");
 
     //New Project Form Fields
-    const newProjButton = document.getElementById("newProjButton");
+    const newProjBtn = document.getElementById("newProjBtn");
 
   
   //Generate Dynmaic Form Content
@@ -58,11 +58,17 @@ export function initForms() {
     isFormShown = true;
    }
 
-  //Handle Forms
-    newTaskButton.addEventListener("click", () => {
+  //Open Forms
+    newTaskBtn.addEventListener("click", () => {
       if (!isFormShown){
       formRefreshProjOpts();
       showForm(newTaskFormWrap);
+    }
+    })
+
+    newProjBtn.addEventListener("click", () => {
+      if (!isFormShown){
+      showForm(newProjFormWrap);
     }
     })
   
@@ -74,13 +80,16 @@ export function initForms() {
         }
       }
     })
-  
+
+   //Close Forms
+
     document.addEventListener("click", function (event) {
       if (event.target.classList.contains("closeBtn")) {
         hideForm(event.target.parentNode.parentNode);
       }
     })
 
+    //Handle Form Submits
     
     const formHandleSelectedProj = (task) => {
       let selectProj = document.getElementById("selectProj").value;
@@ -88,7 +97,6 @@ export function initForms() {
       displayProjWithTasks(allProjs[selectProj]);
     }
   
-    
     newTaskForm.addEventListener("submit", (event) => {
       event.preventDefault();
       createTask(newTaskName.value, newTaskDesc.value);

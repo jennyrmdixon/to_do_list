@@ -8,8 +8,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Sen:wght@400..800&display=swap" rel="stylesheet">
   <link rel="icon" href="sun_favicon.png"><script defer src="main.js"></script></head>
   <body>
-    <div class="form-popup, hidden" id="newTaskFormWrap">
-      <form method= "get" id="newTaskForm">
+    <div class="form-popup, hidden" id="newTaskFormWrap" class="formWraps">
+      <form method="get" id="newTaskForm" class="forms">
         <button type="button" class="closeBtn" id="newTaskFormClose">X</button>
           <h3>Create New Task</h3>
             <label for="newTaskName">Name</label>
@@ -23,8 +23,8 @@
       </form>
 </div>
 
-<div class="form-popup, hidden" id="editTaskFormWrap">
-  <form method= "get" id="editTaskForm">
+<div class="form-popup, hidden" id="editTaskFormWrap" class="formWraps">
+  <form method="get" id="editTaskForm" class="forms">
     <button type="button" class="closeBtn"  id="editTaskFormClose">X</button>
     <h3>Edit Task</h3>
     <input type="hidden" id="editTaskId" name="taskId" value="">
@@ -36,10 +36,10 @@
   </form>
 </div>
 
-<div class="form-popup, hidden" id="newProjFormWrap">
-  <form method= "get" id="newProjForm">
+<div class="form-popup, hidden" id="newProjFormWrap" class="formWraps">
+  <form method="get" id="newProjForm" class="forms">
     <button type="button" class="closeBtn" id="newProjFormClose">X</button>
-      <h3>Create New Task</h3>
+      <h3>Create New Project</h3>
         <label for="newProjName">Name</label>
         <input type="text" id="newProjName" name="newProjName">
         <label for="newProjDesc">Description</label><br>
@@ -57,7 +57,7 @@
           <h4>Projects</h4>
           <ul id="projList">
           </ul>
-          <button id="newProjButton">New Project</button>
+          <button id="newProjBtn">New Project</button>
 
           </div>
           <div id="taskArea">

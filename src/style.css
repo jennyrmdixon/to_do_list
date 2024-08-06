@@ -91,7 +91,7 @@ body {
 }
 
 /*Forms*/
-#newTaskFormWrap, #editTaskFormWrap {
+.formWraps {
   background-color: rgba(0, 0, 0, 0.178);
   position: absolute;
   top: 0;
@@ -100,7 +100,7 @@ body {
   right: 0;
 }
 
-#newTaskForm, #editTaskForm {
+.forms {
   position: absolute;
   left: 50%;
   top: 30%;
@@ -226,7 +226,7 @@ li.projLink:hover, button:hover {
   right: 80px;
 }
 
-#newTaskButton:hover, button[type="submit"]:hover{
+#newTaskBtn:hover, button[type="submit"]:hover{
   background-color: var(--color2);
   color: white;
 }
