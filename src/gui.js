@@ -1,5 +1,5 @@
 import { fullDeleteTask } from "./tasks";
-import { allProjs } from "./projects";
+import { allProjects } from "./projects";
 
 const taskArea = document.getElementById("taskAreaContent");
 
@@ -19,46 +19,46 @@ const createEditBtn = () => {
   return editBtn;
 };
 
-const displayProj = (proj) => {
-  let projWrap = document.createElement("div");
-  projWrap.classList.add("projWrap");
-  taskArea.appendChild(projWrap);
+const displayProject = (project) => {
+  let projectContainer = document.createElement("div");
+  projectContainer.classList.add("projectContainer");
+  taskArea.appendChild(projectContainer);
 
-  let projName = document.createElement("h2");
-  projName.textContent = proj.name;
-  projWrap.appendChild(projName);
+  let projectName = document.createElement("h2");
+  projectName.textContent = project.name;
+  projectContainer.appendChild(projectName);
 
-  let projDesc = document.createElement("p");
-  projDesc.textContent = proj.desc;
-  projWrap.appendChild(projDesc);
+  let projectDesc = document.createElement("p");
+  projectDesc.textContent = project.desc;
+  projectContainer.appendChild(projectDesc);
 };
 
 const displayTask = (task) => {
-  let taskWrap = document.createElement("div");
-  taskWrap.classList.add("taskWrap");
-  taskArea.appendChild(taskWrap);
+  let taskContainer = document.createElement("div");
+  taskContainer.classList.add("taskContainer");
+  taskArea.appendChild(taskContainer);
 
   let taskName = document.createElement("h3");
   taskName.textContent = task.name;
-  taskWrap.appendChild(taskName);
+  taskContainer.appendChild(taskName);
 
   let taskDesc = document.createElement("p");
   taskDesc.textContent = task.desc;
-  taskWrap.appendChild(taskDesc);
+  taskContainer.appendChild(taskDesc);
 
-  taskWrap.setAttribute("id", task.id);
+  taskContainer.setAttribute("id", task.id);
 
-  taskWrap.appendChild(createDeleteBtn());
-  taskWrap.appendChild(createEditBtn());
+  taskContainer.appendChild(createDeleteBtn());
+  taskContainer.appendChild(createEditBtn());
 };
 
-const displayTasks = (proj) => {
-  for (let i = 0; i < proj.tasks.length; i++) {
-    displayTask(proj.tasks[i]);
+const displayTasks = (project) => {
+  for (let i = 0; i < project.tasks.length; i++) {
+    displayTask(project.tasks[i]);
   }
 };
 
-const clearProjTasks = () => {
+const clearProjectTasks = () => {
   taskArea.textContent = "";
 };
 
@@ -67,28 +67,28 @@ const deleteNode = (id) => {
   element.remove();
 };
 
-export const displayProjWithTasks = (proj) => {
-  clearProjTasks();
-  displayProj(proj);
-  displayTasks(proj);
+export const displayProjectWithTasks = (project) => {
+  clearProjectTasks();
+  displayProject(project);
+  displayTasks(project);
 };
 
 //END DOMUtils
 
 export function initDynamicContent() {
-  const projList = document.getElementById("projList");
+  const projectList = document.getElementById("projectList");
 
   //On new load, auto display new tasks
-  displayProjWithTasks(allProjs[0]);
+  displayProjectWithTasks(allProjects[0]);
 
   //Display project info after clicking on each page
-  projList.addEventListener("click", function (event) {
+  projectList.addEventListener("click", function (event) {
     if (event.target.tagName === "LI") {
-      let projName = event.target.innerText;
-      let projIndex = allProjs.findIndex(
-        (proj) => proj.name == projName
+      let projectName = event.target.innerText;
+      let projectIndex = allProjects.findIndex(
+        (project) => project.name == projectName
       );
-      displayProjWithTasks(allProjs[projIndex]);
+      displayProjectWithTasks(allProjects[projectIndex]);
     }
   });
 
@@ -106,10 +106,10 @@ export function initDynamicContent() {
 //end initDynamicContent
 
 
-export const addProjLink = (proj) => {
-  let projLink = document.createElement("li");
-  projLink.classList.add("projLink");
-  projLink.setAttribute("role", "button");
-  projLink.textContent = proj.name;
-  projList.appendChild(projLink);
+export const addProjectLink = (project) => {
+  let projectLink = document.createElement("li");
+  projectLink.classList.add("projectLink");
+  projectLink.setAttribute("role", "button");
+  projectLink.textContent = project.name;
+  projectList.appendChild(projectLink);
 };

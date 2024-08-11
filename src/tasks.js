@@ -1,5 +1,5 @@
 import { uId, findById, updateStorage, getStoredTasks } from "./helpers.js";
-import { allProjs } from "./projects.js";
+import { allProjects } from "./projects.js";
 
 export let allTasks = [];
 if (localStorage.allTasks) {
@@ -38,16 +38,16 @@ const deleteTaskFromArray = (array, taskId) => {
 
 export const fullDeleteTask = (id) => {
   deleteTaskFromArray(allTasks, id);
-  for (let proj of allProjs) {
-    deleteTaskFromArray(proj.tasks, id);
+  for (let project of allProjects) {
+    deleteTaskFromArray(project.tasks, id);
   }
   updateStorage();
 };
 
 
 
-const editTaskInProj = (id, name, desc, projTasks) => {
-  let task = projTasks.find(task => task.id === id);
+const editTaskInProject = (id, name, desc, projectTasks) => {
+  let task = projectTasks.find(task => task.id === id);
   // If the task is found, update its properties
   if (task) {
     if (name) {
@@ -61,8 +61,8 @@ const editTaskInProj = (id, name, desc, projTasks) => {
 }
  
 export const editTask = (id, name, desc) => {
-  for (let proj of allProjs){
-    editTaskInProj(id, name, desc, proj.tasks);
+  for (let project of allProjects){
+    editTaskInProject(id, name, desc, project.tasks);
   }
   updateStorage();
 }

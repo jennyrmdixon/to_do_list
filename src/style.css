@@ -187,11 +187,11 @@ select {
   align-items: center;
 }
 
-.projWrap p {
+.projectContainer p {
   margin-bottom: 20px;
 }
 
-.taskWrap {
+.taskContainer {
   border-bottom: 1px solid grey;
   padding: 5px;
 }
@@ -206,11 +206,11 @@ button {
   margin: 5px 0;
 }
 
-li.projLink, button {
+li.projectLink, button {
   color: var(--color1);
 }
 
-li.projLink:hover, button:hover {
+li.projectLink:hover, button:hover {
   color: var(--color2)
 }
 
