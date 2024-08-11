@@ -1,4 +1,4 @@
-import { allProjects } from "./projects";
+import { allProjects, createProject } from "./projects";
 import { findById } from "./helpers";
 import { allTasks, createTask, addTaskToArray, editTask } from "./tasks";
 import { displayProjectWithTasks } from "./gui";
@@ -23,7 +23,10 @@ export function initForms() {
 
   //New Project Form Fields
   const newProjectBtn = document.getElementById("newProjectBtn");
-  // const 
+  const newProjectFormWrap = document.getElementById("newProjectFormWrap");
+  const newProjectForm = document.getElementById("newProjectForm");
+  let newProjectName = document.getElementById("newProjectName");
+  let newProjectDesc = document.getElementById("newProjectDesc");
 
   //Generate Dynmaic Form Content
   const formRefreshProjectOptions = () => {
@@ -108,3 +111,9 @@ export function initForms() {
     location.reload();
   });
 }
+
+newProjectForm.addEventListener("submit", (event) => {
+  console.log("form submit start");
+  event.preventDefault();
+  createProject(newProjectName.value, newProjectDesc.value, []);
+});

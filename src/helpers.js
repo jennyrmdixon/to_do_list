@@ -11,6 +11,7 @@ export const findById = (array, idNum) => {
 
 export const updateStorage = () => {
   localStorage.setItem("allTasks", JSON.stringify(allTasks));
+  console.log(allProjects);
   localStorage.setItem("allProjects", JSON.stringify(allProjects));
 };
 
@@ -19,5 +20,6 @@ export const getStoredTasks = () => {
 };
 
 export const getStoredProjects = () => {
+  console.log(JSON.parse(localStorage.allProjects));
   return JSON.parse(localStorage.allProjects);
 };

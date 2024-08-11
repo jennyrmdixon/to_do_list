@@ -2,6 +2,7 @@ import { fullDeleteTask } from "./tasks";
 import { allProjects } from "./projects";
 
 const taskArea = document.getElementById("taskAreaContent");
+const projectList = document.getElementById("projectList");
 
 //DOM Utils
 const createDeleteBtn = () => {
@@ -72,13 +73,28 @@ export const displayProjectWithTasks = (project) => {
   displayTasks(project);
 };
 
+export const addProjectLink = (project) => {
+  let projectLink = document.createElement("li");
+  projectLink.classList.add("projectLink");
+  projectLink.setAttribute("role", "button");
+  projectLink.textContent = project.name;
+  projectList.appendChild(projectLink);
+};
 //END DOMUtils
 
-export function initDynamicContent() {
-  const projectList = document.getElementById("projectList");
 
-  //On new load, auto display new tasks
+//Init Dynamic Content on New Page Load 
+
+export function initDynamicContent() {
+  //On new load, auto display all tasks
   displayProjectWithTasks(allProjects[0]);
+
+  //On new load, auto display all projects 
+  (() => {
+    for(let project of allProjects){
+      addProjectLink(project);
+    }
+  })();
 
   //Display project info after clicking on each page
   projectList.addEventListener("click", function (event) {
@@ -102,10 +118,5 @@ export function initDynamicContent() {
 }
 //end initDynamicContent
 
-export const addProjectLink = (project) => {
-  let projectLink = document.createElement("li");
-  projectLink.classList.add("projectLink");
-  projectLink.setAttribute("role", "button");
-  projectLink.textContent = project.name;
-  projectList.appendChild(projectLink);
-};
+
+

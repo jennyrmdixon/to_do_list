@@ -1,11 +1,13 @@
 //PROJECTS
 import { addProjectLink } from "./gui";
-import { getStoredProjects } from "./helpers";
+import { getStoredProjects, updateStorage } from "./helpers";
 
 export let allProjects = [];
+
 export async function updateProjects() {
   await getStoredProjects;
   allProjects = getStoredProjects();
+  console.log("allProjects" + allProjects)
 }
 
 class Project {
@@ -23,4 +25,5 @@ export const createProject = (name, desc, tasks) => {
   let project = new Project(name, desc, tasks);
   allProjects.push(project);
   addProjectLink(project);
+  updateStorage();
 };
