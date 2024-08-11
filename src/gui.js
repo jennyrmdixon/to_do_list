@@ -3,7 +3,6 @@ import { allProjects } from "./projects";
 
 const taskArea = document.getElementById("taskAreaContent");
 
-
 //DOM Utils
 const createDeleteBtn = () => {
   let deleteBtn = document.createElement("button");
@@ -100,11 +99,8 @@ export function initDynamicContent() {
       deleteNode(event.target.parentNode.id);
     }
   });
-
-
 }
 //end initDynamicContent
-
 
 export const addProjectLink = (project) => {
   let projectLink = document.createElement("li");

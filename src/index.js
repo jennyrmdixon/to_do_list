@@ -18,5 +18,4 @@ document.addEventListener("DOMContentLoaded", function () {
       initForms();
     }
   }, 100); // Check every 100 milliseconds
-})
-
+});

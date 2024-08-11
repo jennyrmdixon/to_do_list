@@ -23,5 +23,4 @@ export const createProject = (name, desc, tasks) => {
   let project = new Project(name, desc, tasks);
   allProjects.push(project);
   addProjectLink(project);
-}
-
+};
