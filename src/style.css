@@ -91,7 +91,7 @@ body {
 }
 
 /*Forms*/
-.formPopup {
+.formWraps {
   background-color: rgba(0, 0, 0, 0.178);
   position: absolute;
   top: 0;

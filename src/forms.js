@@ -23,6 +23,7 @@ export function initForms() {
 
   //New Project Form Fields
   const newProjectBtn = document.getElementById("newProjectBtn");
+  // const 
 
   //Generate Dynmaic Form Content
   const formRefreshProjectOptions = () => {
