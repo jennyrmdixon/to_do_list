@@ -1,72 +1,77 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <title>To-Do List</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Sen:wght@400..800&display=swap" rel="stylesheet">
-  <link rel="icon" href="sun_favicon.png"><script defer src="main.js"></script></head>
-  <body>
-    <div class="form-popup, hidden" id="newTaskFormWrap" class="formWraps">
-      <form method="get" id="newTaskForm" class="forms">
-        <button type="button" class="closeBtn" id="newTaskFormClose">X</button>
-          <h3>Create New Task</h3>
-            <label for="newTaskName">Name</label>
-            <input type="text" id="newTaskName" name="newTaskName">
-            <label for="newTaskDesc">Description</label><br>
-            <textarea id="newTaskDesc" name="newTaskDesc"></textarea>
-            <label for="selectProject">Project</label>
-                   <select id="selectProject" name="selectProject">
-                   </select>
-        <button type="submit">Submit</button>
-      </form>
-</div>
 
-<div class="form-popup, hidden" id="editTaskFormWrap" class="formWraps">
-  <form method="get" id="editTaskForm" class="forms">
-    <button type="button" class="closeBtn"  id="editTaskFormClose">X</button>
-    <h3>Edit Task</h3>
-    <input type="hidden" id="editTaskId" name="taskId" value="">
+<head>
+  <meta charset="utf-8" />
+  <title>To-Do List</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sen:wght@400..800&display=swap" rel="stylesheet">
+<link rel="icon" href="sun_favicon.png"><script defer src="main.js"></script></head>
+
+<body>
+  <div class="form-popup, hidden" id="newTaskFormWrap" class="formWraps">
+    <form method="get" id="newTaskForm" class="forms">
+      <button type="button" class="closeBtn" id="newTaskFormClose">X</button>
+      <h3>Create New Task</h3>
+      <label for="newTaskName">Name</label>
+      <input type="text" id="newTaskName" name="newTaskName">
+      <label for="newTaskDesc">Description</label><br>
+      <textarea id="newTaskDesc" name="newTaskDesc"></textarea>
+      <label for="selectProject">Project</label>
+      <select id="selectProject" name="selectProject">
+      </select>
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <div class="formPopup, hidden" id="editTaskFormWrap">
+    <form method="get" id="editTaskForm" class="forms">
+      <button type="button" class="closeBtn" id="editTaskFormClose">X</button>
+      <h3>Edit Task</h3>
+      <input type="hidden" id="editTaskId" name="taskId" value="">
       <label for="taskName">Name</label>
       <input type="text" id="editTaskName" name="taskName">
       <label for="taskDesc">Description</label>
       <textarea id="editTaskDesc" name="taskDesc"></textarea>
-    <button type="submit">Submit</button>
-  </form>
-</div>
+      <button type="submit">Submit</button>
+    </form>
+  </div>
 
-<div class="form-popup, hidden" id="newProjFormWrap" class="formWraps">
-  <form method="get" id="newProjForm" class="forms">
-    <button type="button" class="closeBtn" id="newProjFormClose">X</button>
-      <h3>Create New Project</h3>
-        <label for="newProjName">Name</label>
-        <input type="text" id="newProjName" name="newProjName">
-        <label for="newProjDesc">Description</label><br>
-        <textarea id="newProjDesc" name="newProjDesc"></textarea>
-    <button type="submit">Submit</button>
-  </form>
-</div>
+  <div class="formPopup, hidden" id="newProjectFormWrap">
+    <form method="get" id="newProjForm" class="forms">
+      <button type="button" class="closeBtn" id="newProjectFormClose">X</button>
+      <h3>Create New Task</h3>
+      <label for="newProjectName">Name</label>
+      <input type="text" id="newProjName" name="newProjectName">
+      <label for="newProjectDesc">Description</label><br>
+      <textarea id="newProjectDesc" name="newProjectDesc"></textarea>
+      <button type="submit">Submit</button>
+    </form>
+  </div>
 
-  
-  <div id ="container">
-    <div id ="wrapper">
-      <div id="taskAreaHeader"><h1>My To-Dos</h1><button id="newTaskBtn">New Task</button></div>
-    <div id="mainContent">
+
+  <div id="container">
+    <div id="wrapper">
+      <div id="taskAreaHeader">
+        <h1>My To-Dos</h1><button id="newTaskBtn">New Task</button>
+      </div>
+      <div id="mainContent">
         <div id="sidebar">
           <h4>Projects</h4>
           <ul id="projectList">
           </ul>
-          <button id="newProjectButton">New Project</button>
+          <button id="newProjectBtn">New Project</button>
 
-          </div>
-          <div id="taskArea">
-            <div id="taskAreaContent">
-            </div>
+        </div>
+        <div id="taskArea">
+          <div id="taskAreaContent">
           </div>
         </div>
       </div>
-     </div>
     </div>
-     </body>
-     </html>
+  </div>
+  </div>
+</body>
+
+</html>
