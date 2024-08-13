@@ -4,10 +4,10 @@ import { getStoredProjects, updateStorage } from "./helpers";
 
 export let allProjects = [];
 
-export async function updateProjects() {
-  await getStoredProjects;
+export function updateProjects() {
+  if (getStoredProjects){
   allProjects = getStoredProjects();
-  console.log("allProjects" + allProjects)
+}
 }
 
 class Project {

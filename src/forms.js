@@ -113,7 +113,6 @@ export function initForms() {
 }
 
 newProjectForm.addEventListener("submit", (event) => {
-  console.log("form submit start");
   event.preventDefault();
   createProject(newProjectName.value, newProjectDesc.value, []);
 });

@@ -89,7 +89,7 @@ export function initDynamicContent() {
   //On new load, auto display all tasks
   displayProjectWithTasks(allProjects[0]);
 
-  //On new load, auto display all projects 
+  //On new load, auto display links to all projects 
   (() => {
     for(let project of allProjects){
       addProjectLink(project);
