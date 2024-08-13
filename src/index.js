@@ -1,6 +1,6 @@
 import "./style.css";
 import { allTasks } from "./tasks";
-import { updateProjects, createProject, allProjects } from "./projects.js";
+import { updateProjects, createProject, allProjects, createDefaultProject } from "./projects.js";
 import { initDynamicContent } from "./gui.js";
 import { initForms } from "./forms";
 
@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
       clearInterval(checkAllTasks);
       //If no projects exist yet, create default All Tasks project
       if (allProjects[0] === undefined) {
-        createProject("All Tasks", "An unfiltered view of all tasks", allTasks);
+        createDefaultProject();
       }
       //Add all stored tasks to All Tasks
       allProjects[0].tasks = allTasks;

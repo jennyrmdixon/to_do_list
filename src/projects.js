@@ -1,6 +1,7 @@
 //PROJECTS
 import { addProjectLink } from "./gui";
 import { getStoredProjects, updateStorage } from "./helpers";
+import { allTasks } from "./tasks";
 
 export let allProjects = [];
 
@@ -27,3 +28,10 @@ export const createProject = (name, desc, tasks) => {
   addProjectLink(project);
   updateStorage();
 };
+
+//Creates default project. Skips step to create project link since this is done on page init. 
+export const createDefaultProject = () => {
+  let project = new Project("All Tasks", "An unfiltered view of all tasks", allTasks);
+  allProjects.push(project);
+  updateStorage();
+}
