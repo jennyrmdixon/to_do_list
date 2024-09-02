@@ -19,6 +19,5 @@ export const getStoredTasks = () => {
 };
 
 export const getStoredProjects = () => {
-  console.log(JSON.parse(localStorage.allProjects));
   return JSON.parse(localStorage.allProjects);
 };

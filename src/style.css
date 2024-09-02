@@ -90,6 +90,7 @@ body {
   display: none;
 }
 
+
 /*Forms*/
 .formWraps {
   background-color: rgba(0, 0, 0, 0.178);
@@ -141,6 +142,11 @@ select {
 .formFields label {
   margin-top: 10px;
   display: inline-block;
+}
+
+#noProjectNote {
+  font-style: italic;
+  color: grey;
 }
 
 

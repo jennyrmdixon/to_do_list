@@ -11,6 +11,7 @@ export function initForms() {
   const newTaskForm = document.getElementById("newTaskForm");
   const newTaskBtn = document.getElementById("newTaskBtn");
   const select = document.getElementById("selectProject");
+  const noProjectNote = document.getElementById("noProjectNote");
   let newTaskName = document.getElementById("newTaskName");
   let newTaskDesc = document.getElementById("newTaskDesc");
 
@@ -30,15 +31,24 @@ export function initForms() {
 
   //Generate Dynmaic Form Content
   const formRefreshProjectOptions = () => {
-    //clear project options
-    select.textContent = "";
-    //Write new project options
-    //Skips All Projects at Index 0
-    for (let i = 1; i < allProjects.length; i++) {
-      let projectOption = document.createElement("option");
-      projectOption.textContent = allProjects[i].name;
-      projectOption.value = i;
-      select.appendChild(projectOption);
+    //List all project options, only if projects other than default project exist
+    if (allProjects.length > 1) {
+      noProjectNote.classList.add("hidden");
+      select.classList.remove("hidden");
+      select.textContent = "";
+      //Skips All Projects at Index 0
+      for (let i = 1; i < allProjects.length; i++) {
+        let projectOption = document.createElement("option");
+        projectOption.textContent = allProjects[i].name;
+        projectOption.value = i;
+        select.appendChild(projectOption);
+      }
+      let noProjectOption = document.createElement("option");
+      noProjectOption.textContent = "Don't add to project";
+      noProjectOption.value = "no project";
+      select.appendChild(noProjectOption);
+    } else {
+      select.classList.add("hidden");
     }
   };
 
@@ -93,14 +103,19 @@ export function initForms() {
   //Handle Form Submits
   const formHandleSelectedProject = (task) => {
     let selectProject = document.getElementById("selectProject").value;
-    addTaskToArray(allProjects[selectProject].tasks, task);
-    displayProjectWithTasks(allProjects[selectProject]);
+    if (selectProject !== "no project") {
+      addTaskToArray(allProjects[selectProject].tasks, task);
+      displayProjectWithTasks(allProjects[selectProject]);
+    }
   };
 
   newTaskForm.addEventListener("submit", (event) => {
     event.preventDefault();
     createTask(newTaskName.value, newTaskDesc.value);
-    formHandleSelectedProject(allTasks[allTasks.length - 1]);
+    if (allProjects.length > 1) {
+      formHandleSelectedProject(allTasks[allTasks.length - 1]);
+    }
+    location.reload();
   });
 
   editTaskForm.addEventListener("submit", (event) => {
@@ -113,4 +128,5 @@ export function initForms() {
 newProjectForm.addEventListener("submit", (event) => {
   event.preventDefault();
   createProject(newProjectName.value, newProjectDesc.value, []);
+  location.reload();
 });
