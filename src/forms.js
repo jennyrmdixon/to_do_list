@@ -29,6 +29,11 @@ export function initForms() {
   let newProjectName = document.getElementById("newProjectName");
   let newProjectDesc = document.getElementById("newProjectDesc");
 
+  //Edit Projec Form Fields
+  let editProjectId = document.getElementById("editProjectId");
+  let editProjectName = document.getElementById("editProjectName");
+  let editProjectDesc = document.getElementById("editProjectDesc");
+
   //Generate Dynmaic Form Content
   const formRefreshProjectOptions = () => {
     //List all project options, only if projects other than default project exist
@@ -52,11 +57,18 @@ export function initForms() {
     }
   };
 
-  const autofillEditForm = (taskId) => {
+  const autofillTaskEditForm = (taskId) => {
     let origTask = findById(allTasks, taskId);
     editTaskId.value = allTasks[origTask].id;
     editTaskName.value = allTasks[origTask].name;
     editTaskDesc.value = allTasks[origTask].desc;
+  };
+
+  const autofillProjectEditForm = (projectId) => {
+    let origProject = findById(allProjects, projectId);
+    editProjectId.value = allProjects[origProject].id;
+    editProjectName.value = allProjects[origProject].name;
+    editProjectDesc.value = allProjects[origProject].desc;
   };
 
   //Form Helper Functions
@@ -87,8 +99,18 @@ export function initForms() {
   document.addEventListener("click", function (event) {
     if (event.target.classList.contains("taskEditBtn")) {
       if (!isFormShown) {
-        autofillEditForm(event.srcElement.parentNode.id);
+        autofillTaskEditForm(event.srcElement.parentNode.id);
         showForm(editTaskFormWrap);
+      }
+    }
+  });
+
+  document.addEventListener("click", function (event) {
+    if (event.target.classList.contains("projectEditBtn")) {
+      if (!isFormShown) {
+        console.log(event.srcElement.id);
+        autofillProjectEditForm(event.srcElement.id);
+        showForm(editProjectFormWrap);
       }
     }
   });

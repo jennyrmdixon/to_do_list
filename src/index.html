@@ -51,6 +51,19 @@
     </form>
   </div>
 
+  <div class="formWraps hidden" id="editProjectFormWrap">
+    <form method="get" id="editProjectForm" class="forms">
+      <button type="button" class="closeBtn" id="editProjectFormClose">X</button>
+      <h3>Edit Project</h3>
+      <input type="hidden" id="editProjectId" name="projectId" value="">
+      <label for="editProjectName">Name</label>
+      <input type="text" id="editProjectName" name="editProjectName">
+      <label for="editProjectDesc">Description</label><br>
+      <textarea id="editProjectDesc" name="editProjectDesc"></textarea>
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
 
   <div id="container">
     <div id="wrapper">
