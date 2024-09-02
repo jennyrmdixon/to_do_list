@@ -75,7 +75,7 @@ export function initForms() {
   });
 
   document.addEventListener("click", function (event) {
-    if (event.target.classList.contains("editBtn")) {
+    if (event.target.classList.contains("taskEditBtn")) {
       if (!isFormShown) {
         autofillEditForm(event.srcElement.parentNode.id);
         showForm(editTaskFormWrap);
@@ -84,7 +84,6 @@ export function initForms() {
   });
 
   //Close Forms
-
   document.addEventListener("click", function (event) {
     if (event.target.classList.contains("closeBtn")) {
       hideForm(event.target.parentNode.parentNode);
@@ -92,7 +91,6 @@ export function initForms() {
   });
 
   //Handle Form Submits
-
   const formHandleSelectedProject = (task) => {
     let selectProject = document.getElementById("selectProject").value;
     addTaskToArray(allProjects[selectProject].tasks, task);

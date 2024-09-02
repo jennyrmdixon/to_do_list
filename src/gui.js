@@ -20,6 +20,8 @@ const createEditBtn = (element) => {
 };
 
 const createProjectBtns = (project) => {
+
+
   let projectBtnDiv = document.createElement("div");
   projectBtnDiv.classList.add("projectBtnDiv");
   
@@ -49,8 +51,10 @@ const displayProject = (project) => {
 
   projectContainer.setAttribute("id", project.id);
 
+  if(project.id !== "default"){
   let projectBtns = createProjectBtns(project);
   projectContainer.appendChild(projectBtns);
+  }
 };
 
 const displayTask = (task) => {
