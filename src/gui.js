@@ -1,23 +1,38 @@
 import { fullDeleteTask } from "./tasks";
-import { allProjects } from "./projects";
+import { allProjects, deleteProject } from "./projects";
 
 const taskArea = document.getElementById("taskAreaContent");
 const projectList = document.getElementById("projectList");
 
 //DOM Utils
-const createDeleteBtn = () => {
+const createDeleteBtn = (element) => {
   let deleteBtn = document.createElement("button");
   deleteBtn.textContent = "Delete";
-  deleteBtn.classList.add("deleteBtn");
+  deleteBtn.classList.add(element + "DeleteBtn");
   return deleteBtn;
 };
 
-const createEditBtn = () => {
+const createEditBtn = (element) => {
   let editBtn = document.createElement("button");
   editBtn.textContent = "Edit";
-  editBtn.classList.add("editBtn");
+  editBtn.classList.add(element + "EditBtn");
   return editBtn;
 };
+
+const createProjectBtns = (project) => {
+  let projectBtnDiv = document.createElement("div");
+  projectBtnDiv.classList.add("projectBtnDiv");
+  
+  let projectDeleteBtn = createDeleteBtn("project");
+  projectDeleteBtn.setAttribute("id", project.id);
+  projectBtnDiv.appendChild(projectDeleteBtn);
+  let projectEditBtn = createEditBtn("project");
+  projectEditBtn.setAttribute("id", project.id);
+  projectBtnDiv.appendChild(projectEditBtn);
+
+  return projectBtnDiv;
+}
+
 
 const displayProject = (project) => {
   let projectContainer = document.createElement("div");
@@ -31,6 +46,11 @@ const displayProject = (project) => {
   let projectDesc = document.createElement("p");
   projectDesc.textContent = project.desc;
   projectContainer.appendChild(projectDesc);
+
+  projectContainer.setAttribute("id", project.id);
+
+  let projectBtns = createProjectBtns(project);
+  projectContainer.appendChild(projectBtns);
 };
 
 const displayTask = (task) => {
@@ -48,8 +68,8 @@ const displayTask = (task) => {
 
   taskContainer.setAttribute("id", task.id);
 
-  taskContainer.appendChild(createDeleteBtn());
-  taskContainer.appendChild(createEditBtn());
+  taskContainer.appendChild(createDeleteBtn("task"));
+  taskContainer.appendChild(createEditBtn("task"));
 };
 
 const displayTasks = (project) => {
@@ -110,12 +130,19 @@ export function initDynamicContent() {
   //Main Content Listeners
 
   document.addEventListener("click", function (event) {
-    if (event.target.classList.contains("deleteBtn")) {
+    if (event.target.classList.contains("taskDeleteBtn")) {
       fullDeleteTask(event.target.parentNode.id);
       deleteNode(event.target.parentNode.id);
     }
   });
 }
+
+document.addEventListener("click", function (event) {
+  if (event.target.classList.contains("projectDeleteBtn")) {
+    deleteProject(event.target.id);
+    location.reload();
+  }
+});
 //end initDynamicContent
 
 

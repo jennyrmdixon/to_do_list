@@ -187,8 +187,8 @@ select {
   align-items: center;
 }
 
-.projectContainer p {
-  margin-bottom: 20px;
+.projectContainer {
+  margin-bottom: 30px;
 }
 
 .taskContainer {

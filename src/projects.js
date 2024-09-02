@@ -1,6 +1,6 @@
 //PROJECTS
 import { addProjectLink } from "./gui";
-import { getStoredProjects, updateStorage } from "./helpers";
+import { getStoredProjects, updateStorage, uId, findById } from "./helpers";
 import { allTasks } from "./tasks";
 
 export let allProjects = [];
@@ -16,6 +16,7 @@ class Project {
     this.name = name;
     this.desc = desc;
     this.tasks = tasks;
+    this.id = uId();
   }
 }
 
@@ -29,9 +30,17 @@ export const createProject = (name, desc, tasks) => {
   updateStorage();
 };
 
-//Creates default project. Skips step to create project link since this is done on page init. 
+//Creates default project to use on first page load. Skips step to create project link since this is done on page init. 
 export const createDefaultProject = () => {
   let project = new Project("All Tasks", "An unfiltered view of all tasks", allTasks);
+  project.id = "default";
   allProjects.push(project);
   updateStorage();
 }
+
+export const deleteProject = (projectId) => {
+  let index = findById(allProjects, projectId);
+  allProjects.splice(index, 1);
+  updateStorage();
+};
+
