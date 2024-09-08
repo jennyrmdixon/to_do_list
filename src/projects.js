@@ -30,7 +30,8 @@ export const createProject = (name, desc, tasks) => {
   updateStorage();
 };
 
-//Creates default project to use on first page load. Skips step to create project link since this is done on page init. 
+//Creates default project to use on first page load. 
+//Skips step to create project link since this is done on page init. 
 export const createDefaultProject = () => {
   let project = new Project("All Tasks", "An unfiltered view of all tasks", allTasks);
   project.id = "default";
@@ -44,3 +45,14 @@ export const deleteProject = (projectId) => {
   updateStorage();
 };
 
+export const editProject = (id, name, desc) => {
+  let index = findById(allProjects, id);
+    if (name) {
+      allProjects[index].name = name;
+    }
+    if (desc) {
+      allProjects[index].desc = desc;
+    }
+    updateStorage();
+
+}

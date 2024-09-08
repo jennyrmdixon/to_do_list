@@ -1,4 +1,4 @@
-import { allProjects, createProject } from "./projects";
+import { allProjects, createProject, editProject } from "./projects";
 import { findById } from "./helpers";
 import { allTasks, createTask, addTaskToArray, editTask } from "./tasks";
 import { displayProjectWithTasks } from "./gui";
@@ -150,5 +150,11 @@ export function initForms() {
 newProjectForm.addEventListener("submit", (event) => {
   event.preventDefault();
   createProject(newProjectName.value, newProjectDesc.value, []);
+  location.reload();
+});
+
+editProjectForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  editProject(editProjectId.value, editProjectName.value, editProjectDesc.value);
   location.reload();
 });
