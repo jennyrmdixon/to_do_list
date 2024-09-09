@@ -5,7 +5,9 @@ export const uId = () => {
   return Date.now().toString(36) + Math.random().toString(36).substr(2);
 };
 
-export const findById = (array, idNum) => {
+export const findIndexById = (array, idNum) => {
+  console.log(array);
+  console.log(idNum);
   return array.findIndex((x) => x.id === idNum);
 };
 

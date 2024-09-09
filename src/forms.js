@@ -1,5 +1,5 @@
 import { allProjects, createProject, editProject } from "./projects";
-import { findById } from "./helpers";
+import { findIndexById } from "./helpers";
 import { allTasks, createTask, addTaskToArray, editTask } from "./tasks";
 import { displayProjectWithTasks } from "./gui";
 
@@ -58,14 +58,14 @@ export function initForms() {
   };
 
   const autofillTaskEditForm = (taskId) => {
-    let origTask = findById(allTasks, taskId);
+    let origTask = findIndexById(allTasks, taskId);
     editTaskId.value = allTasks[origTask].id;
     editTaskName.value = allTasks[origTask].name;
     editTaskDesc.value = allTasks[origTask].desc;
   };
 
   const autofillProjectEditForm = (projectId) => {
-    let origProject = findById(allProjects, projectId);
+    let origProject = findIndexById(allProjects, projectId);
     editProjectId.value = allProjects[origProject].id;
     editProjectName.value = allProjects[origProject].name;
     editProjectDesc.value = allProjects[origProject].desc;

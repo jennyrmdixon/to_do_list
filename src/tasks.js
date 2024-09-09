@@ -1,4 +1,4 @@
-import { uId, findById, updateStorage, getStoredTasks } from "./helpers.js";
+import { uId, findIndexById, updateStorage, getStoredTasks } from "./helpers.js";
 import { allProjects } from "./projects.js";
 
 export let allTasks = [];
@@ -29,11 +29,12 @@ export const addTaskToArray = (array, task) => {
   updateStorage();
 }
 
-const deleteTaskFromArray = (array, taskId) => {
-  let index = findById(array, taskId);
+ export const deleteTaskFromArray = (array, taskId) => {
+  let index = findIndexById(array, taskId);
   if (index > -1) {
     array.splice(index, 1);
   }
+  updateStorage();
 };
 
 export const fullDeleteTask = (id) => {
@@ -41,10 +42,7 @@ export const fullDeleteTask = (id) => {
   for (let project of allProjects) {
     deleteTaskFromArray(project.tasks, id);
   }
-  updateStorage();
 };
-
-
 
 const editTaskInProject = (id, name, desc, projectTasks) => {
   let task = projectTasks.find(task => task.id === id);

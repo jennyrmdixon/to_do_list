@@ -1,6 +1,6 @@
 //PROJECTS
 import { addProjectLink } from "./gui";
-import { getStoredProjects, updateStorage, uId, findById } from "./helpers";
+import { getStoredProjects, updateStorage, uId, findIndexById } from "./helpers";
 import { allTasks } from "./tasks";
 
 export let allProjects = [];
@@ -40,13 +40,13 @@ export const createDefaultProject = () => {
 }
 
 export const deleteProject = (projectId) => {
-  let index = findById(allProjects, projectId);
+  let index = findIndexById(allProjects, projectId);
   allProjects.splice(index, 1);
   updateStorage();
 };
 
 export const editProject = (id, name, desc) => {
-  let index = findById(allProjects, id);
+  let index = findIndexById(allProjects, id);
     if (name) {
       allProjects[index].name = name;
     }

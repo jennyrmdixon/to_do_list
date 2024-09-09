@@ -1,5 +1,6 @@
-import { fullDeleteTask } from "./tasks";
+import { fullDeleteTask, deleteTaskFromArray } from "./tasks";
 import { allProjects, deleteProject } from "./projects";
+import { findIndexById } from "./helpers";
 
 const taskArea = document.getElementById("taskAreaContent");
 const projectList = document.getElementById("projectList");
@@ -18,6 +19,16 @@ const createEditBtn = (element) => {
   editBtn.classList.add(element + "EditBtn");
   return editBtn;
 };
+
+const createRemoveBtn = (project) => {
+  let removeBtn = document.createElement("button");
+  removeBtn.textContent = "Remove From Project";
+  removeBtn.classList.add("removeBtn");
+  //Project ID will be used to identify which project task should be removed from
+  removeBtn.setAttribute("data-project", project.id)
+  return removeBtn;
+};
+
 
 const createProjectBtns = (project) => {
 
@@ -57,7 +68,7 @@ const displayProject = (project) => {
   }
 };
 
-const displayTask = (task) => {
+const displayTask = (task, project) => {
   let taskContainer = document.createElement("div");
   taskContainer.classList.add("taskContainer");
   taskArea.appendChild(taskContainer);
@@ -74,11 +85,15 @@ const displayTask = (task) => {
 
   taskContainer.appendChild(createDeleteBtn("task"));
   taskContainer.appendChild(createEditBtn("task"));
+
+  if(project !== allProjects[0]) {
+    taskContainer.appendChild(createRemoveBtn(project));
+  }
 };
 
 const displayTasks = (project) => {
   for (let i = 0; i < project.tasks.length; i++) {
-    displayTask(project.tasks[i]);
+    displayTask(project.tasks[i], project);
   }
 };
 
@@ -147,6 +162,16 @@ document.addEventListener("click", function (event) {
     location.reload();
   }
 });
+
+document.addEventListener("click", function (event) {
+  if (event.target.classList.contains("removeBtn")) {
+    //takes parameters for project id, task id
+    let eventProjectId = findIndexById(allProjects, event.target.dataset.project);
+    deleteTaskFromArray(allProjects[eventProjectId].tasks, event.target.parentNode.id)
+    location.reload();
+  }
+});
+
 //end initDynamicContent
 
 
