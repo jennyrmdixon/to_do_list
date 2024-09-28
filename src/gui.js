@@ -17,6 +17,7 @@ const createEditBtn = (element) => {
   let editBtn = document.createElement("button");
   editBtn.textContent = "Edit";
   editBtn.classList.add(element + "EditBtn");
+  //add project ID here
   return editBtn;
 };
 
@@ -29,19 +30,27 @@ const createRemoveBtn = (project) => {
   return removeBtn;
 };
 
+const createAddTaskBtn = (project) => {
+  let addTaskBtn = document.createElement("button");
+  addTaskBtn.textContent = "Add Task";
+  addTaskBtn.classList.add("addTaskBtn");
+  //Project ID will be used to identify which project task should be added to
+  addTaskBtn.setAttribute("data-project", project.id)
+  return addTaskBtn;
+};
+
 
 const createProjectBtns = (project) => {
-
-
   let projectBtnDiv = document.createElement("div");
   projectBtnDiv.classList.add("projectBtnDiv");
-  
   let projectDeleteBtn = createDeleteBtn("project");
-  projectDeleteBtn.setAttribute("id", project.id);
   projectBtnDiv.appendChild(projectDeleteBtn);
+  
   let projectEditBtn = createEditBtn("project");
-  projectEditBtn.setAttribute("id", project.id);
   projectBtnDiv.appendChild(projectEditBtn);
+
+  let addTaskBtn = createAddTaskBtn(project);
+  projectBtnDiv.appendChild(addTaskBtn);
 
   return projectBtnDiv;
 }

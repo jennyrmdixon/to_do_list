@@ -10,7 +10,7 @@ export function initForms() {
   const newTaskFormWrap = document.getElementById("newTaskFormWrap");
   const newTaskForm = document.getElementById("newTaskForm");
   const newTaskBtn = document.getElementById("newTaskBtn");
-  const select = document.getElementById("selectProject");
+  const selectProject = document.getElementById("selectProject");
   const noProjectNote = document.getElementById("noProjectNote");
   let newTaskName = document.getElementById("newTaskName");
   let newTaskDesc = document.getElementById("newTaskDesc");
@@ -29,33 +29,58 @@ export function initForms() {
   let newProjectName = document.getElementById("newProjectName");
   let newProjectDesc = document.getElementById("newProjectDesc");
 
-  //Edit Projec Form Fields
+  //Edit Project Form Fields
   let editProjectId = document.getElementById("editProjectId");
   let editProjectName = document.getElementById("editProjectName");
   let editProjectDesc = document.getElementById("editProjectDesc");
+
+  //Add Task to Project Form Fields
+  let addTasktoProjectFormWrap = document.getElementById("addTasktoProjectFormWrap");
+  let addTasktoProjectFormHeader = document.getElementById("addTasktoProjectHeader");
+  let selectTask = document.getElementById("selectTask");
 
   //Generate Dynmaic Form Content
   const formRefreshProjectOptions = () => {
     //List all project options, only if projects other than default project exist
     if (allProjects.length > 1) {
       noProjectNote.classList.add("hidden");
-      select.classList.remove("hidden");
-      select.textContent = "";
-      //Skips All Projects at Index 0
+      selectProject.classList.remove("hidden");
+      selectProject.textContent = "";
+      //Skips default 'All Projects' at Index 0
       for (let i = 1; i < allProjects.length; i++) {
         let projectOption = document.createElement("option");
         projectOption.textContent = allProjects[i].name;
         projectOption.value = i;
-        select.appendChild(projectOption);
+        selectProject.appendChild(projectOption);
       }
       let noProjectOption = document.createElement("option");
       noProjectOption.textContent = "Don't add to project";
       noProjectOption.value = "no project";
-      select.appendChild(noProjectOption);
+      selectProject.appendChild(noProjectOption);
     } else {
-      select.classList.add("hidden");
+      selectProject.classList.add("hidden");
     }
   };
+
+  const formRefreshTaskOptions = (projectId) => {
+   selectTask.textContent = "";
+   let currentProject = allProjects[findIndexById(allProjects, projectId)];
+   let availableTasks = [];
+
+   for (let i =1; i < allTasks.length; i++) {
+    //If a task can NOT be found in array of current project, then include it in the list of options
+    if ((findIndexById(currentProject.tasks, allTasks[i].id)) === -1){
+      availableTasks.push(allTasks[i]);
+    }
+   }
+
+    for (let i = 1; i < availableTasks.length; i++) {
+      let taskOption = document.createElement("option");
+      taskOption.textContent = availableTasks[i].name;
+      taskOption.value = availableTasks[i].value;
+      selectTask.appendChild(taskOption);
+    }
+};
 
   const autofillTaskEditForm = (taskId) => {
     let origTask = findIndexById(allTasks, taskId);
@@ -70,6 +95,11 @@ export function initForms() {
     editProjectName.value = allProjects[origProject].name;
     editProjectDesc.value = allProjects[origProject].desc;
   };
+
+  const addHeaderToTaskAddForm = (project) => {
+    let currentProject = allProjects[findIndexById(allProjects, project)];
+    addTasktoProjectFormHeader.textContent = "Add Task For " + currentProject.name;
+  }
 
   //Form Helper Functions
   const hideForm = (form) => {
@@ -108,12 +138,22 @@ export function initForms() {
   document.addEventListener("click", function (event) {
     if (event.target.classList.contains("projectEditBtn")) {
       if (!isFormShown) {
-        console.log(event.srcElement.id);
-        autofillProjectEditForm(event.srcElement.id);
+        autofillProjectEditForm(event.srcElement.dataset.project);
         showForm(editProjectFormWrap);
       }
     }
   });
+
+  document.addEventListener("click", function (event) {
+    if (event.target.classList.contains("addTaskBtn")) {
+      if (!isFormShown) {
+        addHeaderToTaskAddForm(event.srcElement.dataset.project);
+        formRefreshTaskOptions(event.srcElement.dataset.project);
+        showForm(addTasktoProjectFormWrap);
+      }
+    }
+  });
+
 
   //Close Forms
   document.addEventListener("click", function (event) {

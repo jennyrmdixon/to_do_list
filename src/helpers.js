@@ -6,8 +6,6 @@ export const uId = () => {
 };
 
 export const findIndexById = (array, idNum) => {
-  console.log(array);
-  console.log(idNum);
   return array.findIndex((x) => x.id === idNum);
 };
 
