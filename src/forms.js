@@ -1,4 +1,4 @@
-import { allProjects, createProject, editProject } from "./projects";
+import { allProjects, createProject, editProject, addTasktoProject } from "./projects";
 import { findIndexById } from "./helpers";
 import { allTasks, createTask, addTaskToArray, editTask } from "./tasks";
 import { displayProjectWithTasks } from "./gui";
@@ -36,7 +36,9 @@ export function initForms() {
 
   //Add Task to Project Form Fields
   let addTasktoProjectFormWrap = document.getElementById("addTasktoProjectFormWrap");
+  let addTasktoProjectForm = document.getElementById("addTasktoProjectForm");
   let addTasktoProjectFormHeader = document.getElementById("addTasktoProjectHeader");
+  let addTasktoProjectFormId = document.getElementById("addTasktoProjectFormId");
   let selectTask = document.getElementById("selectTask");
 
   //Generate Dynmaic Form Content
@@ -66,18 +68,17 @@ export function initForms() {
    selectTask.textContent = "";
    let currentProject = allProjects[findIndexById(allProjects, projectId)];
    let availableTasks = [];
-
-   for (let i =1; i < allTasks.length; i++) {
-    //If a task can NOT be found in array of current project, then include it in the list of options
+   for (let i = 0; i < allTasks.length; i++) {
+    //If a task can NOT be found in the array of tasks for current project, then include it in the list of options
     if ((findIndexById(currentProject.tasks, allTasks[i].id)) === -1){
       availableTasks.push(allTasks[i]);
     }
    }
-
-    for (let i = 1; i < availableTasks.length; i++) {
+    for (let i = 0; i < availableTasks.length; i++) {
       let taskOption = document.createElement("option");
       taskOption.textContent = availableTasks[i].name;
-      taskOption.value = availableTasks[i].value;
+      //Form intended to utilize index of selected task in All Tasks array
+      taskOption.value = findIndexById(allTasks, availableTasks[i].id);
       selectTask.appendChild(taskOption);
     }
 };
@@ -96,9 +97,13 @@ export function initForms() {
     editProjectDesc.value = allProjects[origProject].desc;
   };
 
-  const addHeaderToTaskAddForm = (project) => {
-    let currentProject = allProjects[findIndexById(allProjects, project)];
+  const autofillAddTaskToProjectForm = (projectId) => {
+    //Add header
+    let currentProject = allProjects[findIndexById(allProjects, projectId)];
     addTasktoProjectFormHeader.textContent = "Add Task For " + currentProject.name;
+    //Add hidden id
+    addTasktoProjectFormId.value = projectId;
+    formRefreshTaskOptions(projectId);
   }
 
   //Form Helper Functions
@@ -147,8 +152,7 @@ export function initForms() {
   document.addEventListener("click", function (event) {
     if (event.target.classList.contains("addTaskBtn")) {
       if (!isFormShown) {
-        addHeaderToTaskAddForm(event.srcElement.dataset.project);
-        formRefreshTaskOptions(event.srcElement.dataset.project);
+        autofillAddTaskToProjectForm(event.srcElement.dataset.project);
         showForm(addTasktoProjectFormWrap);
       }
     }
@@ -164,10 +168,10 @@ export function initForms() {
 
   //Handle Form Submits
   const formHandleSelectedProject = (task) => {
-    let selectProject = document.getElementById("selectProject").value;
-    if (selectProject !== "no project") {
-      addTaskToArray(allProjects[selectProject].tasks, task);
-      displayProjectWithTasks(allProjects[selectProject]);
+    let selectedProject = document.getElementById("selectProject").value;
+    if (selectedProject !== "no project") {
+      addTaskToArray(allProjects[selectedProject].tasks, task);
+      displayProjectWithTasks(allProjects[selectedProject]);
     }
   };
 
@@ -196,5 +200,14 @@ newProjectForm.addEventListener("submit", (event) => {
 editProjectForm.addEventListener("submit", (event) => {
   event.preventDefault();
   editProject(editProjectId.value, editProjectName.value, editProjectDesc.value);
+  location.reload();
+});
+
+
+addTasktoProjectForm.addEventListener("submit", (event) => {
+  let selectedProjectId = addTasktoProjectFormId.value;
+  let selectedTaskIndex = selectTask.value;
+  event.preventDefault();
+  addTasktoProject(selectedProjectId, selectedTaskIndex);
   location.reload();
 });

@@ -56,3 +56,9 @@ export const editProject = (id, name, desc) => {
     updateStorage();
 
 }
+
+export const addTasktoProject = (projectId, taskIndex) => {
+  let selectedProject = allProjects[findIndexById(allProjects, projectId)];
+  (selectedProject.tasks).push(allTasks[taskIndex]);
+  updateStorage();
+}
