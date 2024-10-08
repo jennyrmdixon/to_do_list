@@ -1,5 +1,5 @@
 import { fullDeleteTask, deleteTaskFromArray } from "./tasks";
-import { allProjects, deleteProject } from "./projects";
+import { allProjects, deleteProject, moveTask } from "./projects";
 import { findIndexById } from "./helpers";
 
 const taskArea = document.getElementById("taskAreaContent");
@@ -26,7 +26,7 @@ const createRemoveBtn = (project) => {
   removeBtn.textContent = "Remove From Project";
   removeBtn.classList.add("removeBtn");
   //Project ID will be used to identify which project task should be removed from
-  removeBtn.setAttribute("data-project", project.id)
+  removeBtn.setAttribute("data-project", project.id);
   return removeBtn;
 };
 
@@ -35,17 +35,16 @@ const createAddTaskBtn = (project) => {
   addTaskBtn.textContent = "Add Task";
   addTaskBtn.classList.add("addTaskBtn");
   //Project ID will be used to identify which project task should be added to
-  addTaskBtn.setAttribute("data-project", project.id)
+  addTaskBtn.setAttribute("data-project", project.id);
   return addTaskBtn;
 };
-
 
 const createProjectBtns = (project) => {
   let projectBtnDiv = document.createElement("div");
   projectBtnDiv.classList.add("projectBtnDiv");
   let projectDeleteBtn = createDeleteBtn("project");
   projectBtnDiv.appendChild(projectDeleteBtn);
-  
+
   let projectEditBtn = createEditBtn("project");
   projectBtnDiv.appendChild(projectEditBtn);
 
@@ -53,8 +52,7 @@ const createProjectBtns = (project) => {
   projectBtnDiv.appendChild(addTaskBtn);
 
   return projectBtnDiv;
-}
-
+};
 
 const displayProject = (project) => {
   let projectContainer = document.createElement("div");
@@ -71,16 +69,20 @@ const displayProject = (project) => {
 
   projectContainer.setAttribute("id", project.id);
 
-  if(project.id !== "default"){
-  let projectBtns = createProjectBtns(project);
-  projectContainer.appendChild(projectBtns);
+  if (project.id !== "default") {
+    let projectBtns = createProjectBtns(project);
+    projectContainer.appendChild(projectBtns);
   }
 };
 
 const displayTask = (task, project) => {
+  let taskWrapper = document.createElement("div");
+  taskWrapper.classList.add("taskWrapper");
+  taskArea.appendChild(taskWrapper);
+
   let taskContainer = document.createElement("div");
   taskContainer.classList.add("taskContainer");
-  taskArea.appendChild(taskContainer);
+  taskWrapper.appendChild(taskContainer);
 
   let taskName = document.createElement("h3");
   taskName.textContent = task.name;
@@ -95,9 +97,29 @@ const displayTask = (task, project) => {
   taskContainer.appendChild(createDeleteBtn("task"));
   taskContainer.appendChild(createEditBtn("task"));
 
-  if(project !== allProjects[0]) {
+  if (project !== allProjects[0]) {
     taskContainer.appendChild(createRemoveBtn(project));
   }
+
+  //Arrows
+  let taskSideColumn = document.createElement("div");
+  taskSideColumn.setAttribute("data-project", project.id);
+  ("");
+  taskWrapper.appendChild(taskSideColumn);
+
+  let taskUpButton = document.createElement("div");
+  taskUpButton.textContent = "⌃";
+  taskUpButton.classList.add("taskArrow");
+  taskUpButton.setAttribute("data-direction", "up");
+  taskUpButton.setAttribute("data-task", task.id);
+  taskSideColumn.appendChild(taskUpButton);
+
+  let taskDownButton = document.createElement("div");
+  taskDownButton.textContent = "⌄";
+  taskDownButton.classList.add("taskArrow");
+  taskDownButton.setAttribute("data-direction", "down");
+  taskDownButton.setAttribute("data-task", task.id);
+  taskSideColumn.appendChild(taskDownButton);
 };
 
 const displayTasks = (project) => {
@@ -130,16 +152,15 @@ export const addProjectLink = (project) => {
 };
 //END DOMUtils
 
-
-//Init Dynamic Content on New Page Load 
+//Init Dynamic Content on New Page Load
 
 export function initDynamicContent() {
   //On new load, auto display all tasks
   displayProjectWithTasks(allProjects[0]);
 
-  //On new load, auto display links to all projects 
+  //On new load, auto display links to all projects
   (() => {
-    for(let project of allProjects){
+    for (let project of allProjects) {
       addProjectLink(project);
     }
   })();
@@ -175,13 +196,24 @@ document.addEventListener("click", function (event) {
 document.addEventListener("click", function (event) {
   if (event.target.classList.contains("removeBtn")) {
     //takes parameters for project id, task id
-    let eventProjectId = findIndexById(allProjects, event.target.dataset.project);
-    deleteTaskFromArray(allProjects[eventProjectId].tasks, event.target.parentNode.id)
+    let eventProjectId = findIndexById(
+      allProjects,
+      event.target.dataset.project
+    );
+    deleteTaskFromArray(
+      allProjects[eventProjectId].tasks,
+      event.target.parentNode.id
+    );
     location.reload();
   }
 });
 
-//end initDynamicContent
-
-
-
+document.addEventListener("click", function (event) {
+  if (event.target.classList.contains("taskArrow")) {
+    let direction = event.target.dataset.direction;
+    let projectId = event.target.parentNode.dataset.project;
+    let taskId = event.target.dataset.task;
+    moveTask(taskId, projectId, direction);
+    location.reload();
+  }
+}); //end initDynamicContent

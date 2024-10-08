@@ -197,7 +197,9 @@ select {
   margin-bottom: 30px;
 }
 
-.taskContainer {
+.taskWrapper {
+  display: grid;
+  grid-template-columns: 98% 2%;
   border-bottom: 1px solid grey;
   padding: 5px;
 }
@@ -240,4 +242,21 @@ li.projectLink:hover, button:hover {
 
 button[type="submit"] {
   margin-top: 20px;
+}
+
+.taskArrow {
+  font-size: 18px;
+  padding: 5px;
+}
+
+.taskArrow:hover {
+  color: var(--color1);
+}
+
+.taskArrow:nth-child(1){
+  margin-top: 7px;
+}
+
+.taskArrow:nth-child(2){
+  margin-top: -15px;
 }
