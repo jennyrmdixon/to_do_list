@@ -14,6 +14,8 @@ export function initForms() {
   const noProjectNote = document.getElementById("noProjectNote");
   let newTaskName = document.getElementById("newTaskName");
   let newTaskDesc = document.getElementById("newTaskDesc");
+  let newTaskColor = document.getElementById("newTaskColor");
+
 
   //Edit Task Form Elements
   const editTaskFormWrap = document.getElementById("editTaskFormWrap");
@@ -177,7 +179,7 @@ export function initForms() {
 
   newTaskForm.addEventListener("submit", (event) => {
     event.preventDefault();
-    createTask(newTaskName.value, newTaskDesc.value);
+    createTask(newTaskName.value, newTaskDesc.value, newTaskColor.value);
     if (allProjects.length > 1) {
       formHandleSelectedProject(allTasks[allTasks.length - 1]);
     }
