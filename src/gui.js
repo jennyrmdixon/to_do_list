@@ -77,6 +77,7 @@ const displayProject = (project) => {
 
 const displayTask = (task, project) => {
   let taskWrapper = document.createElement("div");
+  taskWrapper.setAttribute("id", "wrapper"+task.id);
   taskWrapper.classList.add("taskWrapper");
   taskArea.appendChild(taskWrapper);
 
@@ -99,10 +100,9 @@ const displayTask = (task, project) => {
 
   let taskDesc = document.createElement("p");
   taskDesc.textContent = task.desc;
+
   taskContainer.appendChild(taskDesc);
-
   taskContainer.setAttribute("id", task.id);
-
   taskContainer.appendChild(createDeleteBtn("task"));
   taskContainer.appendChild(createEditBtn("task"));
 
@@ -189,8 +189,10 @@ export function initDynamicContent() {
 
   document.addEventListener("click", function (event) {
     if (event.target.classList.contains("taskDeleteBtn")) {
+      //Delete based on task ID
       fullDeleteTask(event.target.parentNode.id);
-      deleteNode(event.target.parentNode.id);
+      //Delete container node on GUI associated with that ID
+      deleteNode(event.target.parentNode.parentNode.id);
     }
   });
 }
