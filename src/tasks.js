@@ -7,15 +7,16 @@ if (localStorage.allTasks) {
 }
 
 class Task {
-  constructor(name, desc) {
+  constructor(name, desc, color) {
     this.name = name;
     this.desc = desc;
+    this.color = color;
     this.id = uId();
   }
 }
 
-export const createTask = (name, desc) => {
-  let task = new Task(name, desc);
+export const createTask = (name, desc, color) => {
+  let task = new Task(name, desc, color);
   allTasks.push(task);
   updateStorage();
 };

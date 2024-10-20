@@ -204,6 +204,44 @@ select {
   padding: 5px;
 }
 
+.taskNameWrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+.taskNameWrapper span {
+  font-size: 25px;
+  padding-right: 6px;
+}
+
+span[data-color="none"], span[data-color="undefined"]{
+  color:rgba(255, 255, 255, 0);
+}
+
+span[data-color="yellow"]{
+  color:#EEA663;
+}
+
+span[data-color="orange"] {
+  color: #EB8153;
+}
+
+span[data-color="blue"] {
+  color: #3A6F97;
+}
+
+span[data-color="purple"] {
+  color: #643D4D;
+}
+
+
+.taskNameWrapper h3 {
+  align-self: center;
+}
+
+.taskContainer p {
+  margin-left: 22px
+}
 
 /*Buttons and Links*/
 
@@ -239,6 +277,10 @@ li.projectLink:hover, button:hover {
   color: white;
 }
 
+/*For alignment*/
+.taskDeleteBtn {
+  margin-left: 17px;
+}
 
 button[type="submit"] {
   margin-top: 20px;
@@ -260,3 +302,4 @@ button[type="submit"] {
 .taskArrow:nth-child(2){
   margin-top: -15px;
 }
+

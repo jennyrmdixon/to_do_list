@@ -84,9 +84,18 @@ const displayTask = (task, project) => {
   taskContainer.classList.add("taskContainer");
   taskWrapper.appendChild(taskContainer);
 
+  let taskNameWrapper = document.createElement("div");
+  taskNameWrapper.classList.add("taskNameWrapper");
+  taskContainer.appendChild(taskNameWrapper);
+
+  let taskColor = document.createElement("span");
+  taskColor.textContent = "●";
+  taskColor.setAttribute("data-color", task.color);
+  taskNameWrapper.appendChild(taskColor);
+
   let taskName = document.createElement("h3");
   taskName.textContent = task.name;
-  taskContainer.appendChild(taskName);
+  taskNameWrapper.appendChild(taskName);
 
   let taskDesc = document.createElement("p");
   taskDesc.textContent = task.desc;
