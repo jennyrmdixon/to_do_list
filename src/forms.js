@@ -92,6 +92,7 @@ export function initForms() {
     editTaskId.value = allTasks[origTask].id;
     editTaskName.value = allTasks[origTask].name;
     editTaskDesc.value = allTasks[origTask].desc;
+    editTaskColor.value = allTasks[origTask].color;
   };
 
   const autofillProjectEditForm = (projectId) => {
