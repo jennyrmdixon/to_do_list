@@ -108,12 +108,11 @@ const displayTask = (task, project) => {
 
   if (project !== allProjects[0]) {
     taskContainer.appendChild(createRemoveBtn(project));
-  }
+  };
 
   //Arrows
   let taskSideColumn = document.createElement("div");
   taskSideColumn.setAttribute("data-project", project.id);
-  ("");
   taskWrapper.appendChild(taskSideColumn);
 
   let taskUpButton = document.createElement("div");
@@ -159,6 +158,11 @@ export const addProjectLink = (project) => {
   projectLink.textContent = project.name;
   projectList.appendChild(projectLink);
 };
+
+const refreshPage = (projectId) => {
+    displayProjectWithTasks(allProjects[findIndexById(allProjects, projectId)]);
+};
+
 //END DOMUtils
 
 //Init Dynamic Content on New Page Load
@@ -225,6 +229,7 @@ document.addEventListener("click", function (event) {
     let projectId = event.target.parentNode.dataset.project;
     let taskId = event.target.dataset.task;
     moveTask(taskId, projectId, direction);
-    location.reload();
+    refreshPage(projectId);
   }
 }); //end initDynamicContent
+
