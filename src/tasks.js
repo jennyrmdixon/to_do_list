@@ -45,7 +45,7 @@ export const fullDeleteTask = (id) => {
   }
 };
 
-const editTaskInProject = (id, name, desc, projectTasks) => {
+const editTaskInProject = (id, name, desc, color, projectTasks) => {
   let task = projectTasks.find(task => task.id === id);
   // If the task is found, update its properties
   if (task) {
@@ -55,13 +55,16 @@ const editTaskInProject = (id, name, desc, projectTasks) => {
     if (desc) {
       task.desc = desc;
     }
+    if (color) {
+      task.color = color;
+    }
   }
 
 }
  
-export const editTask = (id, name, desc) => {
+export const editTask = (id, name, desc, color) => {
   for (let project of allProjects){
-    editTaskInProject(id, name, desc, project.tasks);
+    editTaskInProject(id, name, desc, color, project.tasks);
   }
   updateStorage();
 }

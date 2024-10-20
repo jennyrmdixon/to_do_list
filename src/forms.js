@@ -23,6 +23,8 @@ export function initForms() {
   let editTaskId = document.getElementById("editTaskId");
   let editTaskName = document.getElementById("editTaskName");
   let editTaskDesc = document.getElementById("editTaskDesc");
+  let editTaskColor = document.getElementById("editTaskColor");
+
 
   //New Project Form Fields
   const newProjectBtn = document.getElementById("newProjectBtn");
@@ -188,7 +190,7 @@ export function initForms() {
 
   editTaskForm.addEventListener("submit", (event) => {
     event.preventDefault();
-    editTask(editTaskId.value, editTaskName.value, editTaskDesc.value);
+    editTask(editTaskId.value, editTaskName.value, editTaskDesc.value, editTaskColor.value);
     location.reload();
   });
 }
