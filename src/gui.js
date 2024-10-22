@@ -13,11 +13,13 @@ const createDeleteBtn = (element) => {
   return deleteBtn;
 };
 
-const createEditBtn = (element) => {
+const createEditBtn = (element, project) => {
   let editBtn = document.createElement("button");
   editBtn.textContent = "Edit";
   editBtn.classList.add(element + "EditBtn");
-  //add project ID here
+  if (project){
+  editBtn.setAttribute("data-project", project.id);
+}
   return editBtn;
 };
 
@@ -42,10 +44,11 @@ const createAddTaskBtn = (project) => {
 const createProjectBtns = (project) => {
   let projectBtnDiv = document.createElement("div");
   projectBtnDiv.classList.add("projectBtnDiv");
+
   let projectDeleteBtn = createDeleteBtn("project");
   projectBtnDiv.appendChild(projectDeleteBtn);
 
-  let projectEditBtn = createEditBtn("project");
+  let projectEditBtn = createEditBtn("project", project);
   projectBtnDiv.appendChild(projectEditBtn);
 
   let addTaskBtn = createAddTaskBtn(project);
@@ -77,7 +80,7 @@ const displayProject = (project) => {
 
 const displayTask = (task, project) => {
   let taskWrapper = document.createElement("div");
-  taskWrapper.setAttribute("id", "wrapper"+task.id);
+  taskWrapper.setAttribute("id", "wrapper" + task.id);
   taskWrapper.classList.add("taskWrapper");
   taskArea.appendChild(taskWrapper);
 
@@ -100,17 +103,18 @@ const displayTask = (task, project) => {
 
   let taskDesc = document.createElement("p");
   taskDesc.textContent = task.desc;
-
   taskContainer.appendChild(taskDesc);
   taskContainer.setAttribute("id", task.id);
+
+  //displayTask - Buttons
   taskContainer.appendChild(createDeleteBtn("task"));
   taskContainer.appendChild(createEditBtn("task"));
 
   if (project !== allProjects[0]) {
     taskContainer.appendChild(createRemoveBtn(project));
-  };
+  }
 
-  //Arrows
+  //displayTask - Arrows
   let taskSideColumn = document.createElement("div");
   taskSideColumn.setAttribute("data-project", project.id);
   taskWrapper.appendChild(taskSideColumn);
@@ -160,7 +164,7 @@ export const addProjectLink = (project) => {
 };
 
 const refreshPage = (projectId) => {
-    displayProjectWithTasks(allProjects[findIndexById(allProjects, projectId)]);
+  displayProjectWithTasks(allProjects[findIndexById(allProjects, projectId)]);
 };
 
 //END DOMUtils
@@ -211,15 +215,15 @@ document.addEventListener("click", function (event) {
 document.addEventListener("click", function (event) {
   if (event.target.classList.contains("removeBtn")) {
     //takes parameters for project id, task id
-    let eventProjectId = findIndexById(
+    let eventProjectIndex = findIndexById(
       allProjects,
       event.target.dataset.project
     );
     deleteTaskFromArray(
-      allProjects[eventProjectId].tasks,
+      allProjects[eventProjectIndex].tasks,
       event.target.parentNode.id
     );
-    location.reload();
+    refreshPage(event.target.dataset.project);
   }
 });
 
@@ -232,4 +236,3 @@ document.addEventListener("click", function (event) {
     refreshPage(projectId);
   }
 }); //end initDynamicContent
-
