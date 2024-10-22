@@ -97,9 +97,6 @@ export function initForms() {
 
   const autofillProjectEditForm = (projectId) => {
     let origProject = findIndexById(allProjects, projectId);
-    console.log(origProject);
-    console.log(allProjects[origProject]);
-    console.log(allProjects[origProject].id)
     editProjectId.value = allProjects[origProject].id;
     editProjectName.value = allProjects[origProject].name;
     editProjectDesc.value = allProjects[origProject].desc;
@@ -151,7 +148,7 @@ export function initForms() {
   document.addEventListener("click", function (event) {
     if (event.target.classList.contains("projectEditBtn")) {
       if (!isFormShown) {
-        autofillProjectEditForm(event.srcElement.parentNode.parentNode.id);
+        autofillProjectEditForm(event.srcElement.dataset.project);
         showForm(editProjectFormWrap);
       }
     }
