@@ -1,7 +1,7 @@
 import { allProjects, createProject, editProject, addTasktoProject } from "./projects";
 import { findIndexById } from "./helpers";
 import { allTasks, createTask, addTaskToArray, editTask } from "./tasks";
-import { displayProjectWithTasks } from "./gui";
+import { displayProjectWithTasks, refreshPage } from "./gui";
 
 export function initForms() {
   let isFormShown = false;
@@ -21,9 +21,11 @@ export function initForms() {
   const editTaskFormWrap = document.getElementById("editTaskFormWrap");
   const editTaskForm = document.getElementById("editTaskForm");
   let editTaskId = document.getElementById("editTaskId");
+  let editTaskPageId  = document.getElementById("editTaskPageId");
   let editTaskName = document.getElementById("editTaskName");
   let editTaskDesc = document.getElementById("editTaskDesc");
   let editTaskColor = document.getElementById("editTaskColor");
+
 
 
   //New Project Form Fields
@@ -87,9 +89,10 @@ export function initForms() {
     }
 };
 
-  const autofillTaskEditForm = (taskId) => {
+  const autofillTaskEditForm = (taskId, projectId) => {
     let origTask = findIndexById(allTasks, taskId);
     editTaskId.value = allTasks[origTask].id;
+    editTaskPageId.value = projectId;
     editTaskName.value = allTasks[origTask].name;
     editTaskDesc.value = allTasks[origTask].desc;
     editTaskColor.value = allTasks[origTask].color;
@@ -139,7 +142,7 @@ export function initForms() {
   document.addEventListener("click", function (event) {
     if (event.target.classList.contains("taskEditBtn")) {
       if (!isFormShown) {
-        autofillTaskEditForm(event.srcElement.parentNode.id);
+        autofillTaskEditForm(event.srcElement.parentNode.id, event.srcElement.dataset.project);
         showForm(editTaskFormWrap);
       }
     }
@@ -192,7 +195,8 @@ export function initForms() {
   editTaskForm.addEventListener("submit", (event) => {
     event.preventDefault();
     editTask(editTaskId.value, editTaskName.value, editTaskDesc.value, editTaskColor.value);
-    location.reload();
+    refreshPage(editTaskPageId.value);
+    hideForm(event.target.parentNode)
   });
 }
 

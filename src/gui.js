@@ -108,7 +108,7 @@ const displayTask = (task, project) => {
 
   //displayTask - Buttons
   taskContainer.appendChild(createDeleteBtn("task"));
-  taskContainer.appendChild(createEditBtn("task"));
+  taskContainer.appendChild(createEditBtn("task", project));
 
   if (project !== allProjects[0]) {
     taskContainer.appendChild(createRemoveBtn(project));
@@ -163,7 +163,7 @@ export const addProjectLink = (project) => {
   projectList.appendChild(projectLink);
 };
 
-const refreshPage = (projectId) => {
+export const refreshPage = (projectId) => {
   displayProjectWithTasks(allProjects[findIndexById(allProjects, projectId)]);
 };
 
