@@ -4,8 +4,14 @@ import { findIndexById } from "./helpers";
 
 const taskArea = document.getElementById("taskAreaContent");
 const projectList = document.getElementById("projectList");
+let currentProjectId= "default";
 
 //DOM Utils
+
+export const trackPageChange = (project) => {
+  currentProjectId = project.id;
+};
+
 const createDeleteBtn = (element) => {
   let deleteBtn = document.createElement("button");
   deleteBtn.textContent = "Delete";
@@ -65,6 +71,9 @@ const displayProject = (project) => {
   let projectName = document.createElement("h2");
   projectName.textContent = project.name;
   projectContainer.appendChild(projectName);
+  projectName.setAttribute("data-project", project.id);
+  projectName.setAttribute("id", "projectName");
+
 
   let projectDesc = document.createElement("p");
   projectDesc.textContent = project.desc;
@@ -153,6 +162,7 @@ export const displayProjectWithTasks = (project) => {
   clearProjectTasks();
   displayProject(project);
   displayTasks(project);
+  trackPageChange(project);
 };
 
 export const addProjectLink = (project) => {

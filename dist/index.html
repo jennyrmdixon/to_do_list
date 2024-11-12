@@ -14,7 +14,8 @@
     <form method="get" id="newTaskForm" class="forms">
       <button type="button" class="closeBtn" id="newTaskFormClose">X</button>
       <h3>Create New Task</h3>
-      <label for="newTaskName">Name</labPel>
+      <input type="hidden" id="newTaskPageId" name="newTaskPageId" class="pageIdField" value="">
+      <label for="newTaskName">Name</label>
       <input type="text" id="newTaskName" name="newTaskName">
       <label for="newTaskDesc">Description</label><br>
       <textarea id="newTaskDesc" name="newTaskDesc"></textarea>
@@ -39,7 +40,7 @@
       <button type="button" class="closeBtn" id="editTaskFormClose">X</button>
       <h3>Edit Task</h3>
       <input type="hidden" id="editTaskId" name="editTaskId" value="">
-      <input type="hidden" id="editTaskPageId" name="editTaskPageId" value="">
+      <input type="hidden" id="editTaskPageId" name="editTaskPageId" class="pageIdField" value="">
       <label for="taskName">Name</label>
       <input type="text" id="editTaskName" name="taskName">
       <label for="taskDesc">Description</label>
@@ -60,6 +61,7 @@
     <form method="get" id="newProjectForm" class="forms">
       <button type="button" class="closeBtn" id="newProjectFormClose">X</button>
       <h3>Create New Project</h3>
+      <input type="hidden" id="newProjectPageId" name="newProjectPageId" class="pageIdField" value="">
       <label for="newProjectName">Name</label>
       <input type="text" id="newProjectName" name="newProjectName">
       <label for="newProjectDesc">Description</label><br>
@@ -70,6 +72,7 @@
 
   <div class="formWraps hidden" id="editProjectFormWrap">
     <form method="get" id="editProjectForm" class="forms">
+      <input type="hidden" id="editProjectPageId" name="editProjectPageId" class="pageIdField" value="">
       <button type="button" class="closeBtn" id="editProjectFormClose">X</button>
       <h3>Edit Project</h3>
       <input type="hidden" id="editProjectId" name="editProjectId" value="">
@@ -83,6 +86,7 @@
 
   <div class="formWraps hidden" id="addTasktoProjectFormWrap">
     <form method="get" id="addTasktoProjectForm" class="forms">
+      <input type="hidden" id="addTasktoProjectPageId" name="addTasktoProjectPageId" class="pageIdField" value="">
       <button type="button" class="closeBtn" id="addTasktoProjectFormClose">X</button>
       <h3 id="addTasktoProjectHeader"></h3>
       <input type="hidden" id="addTasktoProjectFormId" name="addTasktoProjectFormId" value="">
