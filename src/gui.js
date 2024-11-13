@@ -178,22 +178,22 @@ export const refreshPage = (projectId) => {
   displayProjectWithTasks(allProjects[findIndexById(allProjects, projectId)]);
 };
 
-//Add function to update link immediately upon reset
-
+export function updateProjectLinks () {
+  projectList.textContent = "";
+  for (let project of allProjects) {
+    addProjectLink(project);
+  }
+};
 //END DOMUtils
 
 //Init Dynamic Content on New Page Load
 
-export function initDynamicContent() {
+export function initDynamicContent () {
   //On new load, auto display all tasks
   displayProjectWithTasks(allProjects[0]);
 
   //On new load, auto display links to all projects
-  (() => {
-    for (let project of allProjects) {
-      addProjectLink(project);
-    }
-  })();
+  updateProjectLinks();
 
   //Display project info after clicking on each page
   projectList.addEventListener("click", function (event) {

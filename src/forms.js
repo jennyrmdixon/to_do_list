@@ -6,7 +6,7 @@ import {
 } from "./projects";
 import { findIndexById } from "./helpers";
 import { allTasks, createTask, addTaskToArray, editTask } from "./tasks";
-import { displayProjectWithTasks, refreshPage } from "./gui";
+import { displayProjectWithTasks, refreshPage, updateProjectLinks } from "./gui";
 
 export function initForms() {
   let isFormShown = false;
@@ -229,7 +229,6 @@ export function initForms() {
     hideForm(event.target.parentNode);
   });
 
-  //Edit to refresh project names immediately
   editProjectForm.addEventListener("submit", (event) => {
     event.preventDefault();
     editProject(
@@ -238,6 +237,7 @@ export function initForms() {
       editProjectDesc.value
     );
     refreshPage(editProjectPageId.value);
+    updateProjectLinks();
     hideForm(event.target.parentNode);
   });
 
