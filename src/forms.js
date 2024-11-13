@@ -229,7 +229,7 @@ export function initForms() {
     hideForm(event.target.parentNode);
   });
 
-  //Edit to refresh project names
+  //Edit to refresh project names immediately
   editProjectForm.addEventListener("submit", (event) => {
     event.preventDefault();
     editProject(

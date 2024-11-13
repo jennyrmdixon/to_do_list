@@ -170,12 +170,15 @@ export const addProjectLink = (project) => {
   projectLink.classList.add("projectLink");
   projectLink.setAttribute("role", "button");
   projectLink.textContent = project.name;
+  projectLink.setAttribute("data-project", project.id);
   projectList.appendChild(projectLink);
 };
 
 export const refreshPage = (projectId) => {
   displayProjectWithTasks(allProjects[findIndexById(allProjects, projectId)]);
 };
+
+//Add function to update link immediately upon reset
 
 //END DOMUtils
 
@@ -195,10 +198,7 @@ export function initDynamicContent() {
   //Display project info after clicking on each page
   projectList.addEventListener("click", function (event) {
     if (event.target.tagName === "LI") {
-      let projectName = event.target.innerText;
-      let projectIndex = allProjects.findIndex(
-        (project) => project.name == projectName
-      );
+      let projectIndex = findIndexById(allProjects, event.target.dataset.project);
       displayProjectWithTasks(allProjects[projectIndex]);
     }
   });
