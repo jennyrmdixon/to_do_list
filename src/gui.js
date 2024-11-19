@@ -217,8 +217,10 @@ export function initDynamicContent () {
 
 document.addEventListener("click", function (event) {
   if (event.target.classList.contains("projectDeleteBtn")) {
+    console.log(event.target.id);
     deleteProject(event.target.id);
-    location.reload();
+    displayProjectWithTasks(allProjects[0]);
+    updateProjectLinks();
   }
 });
 
