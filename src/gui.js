@@ -6,17 +6,23 @@ const taskArea = document.getElementById("taskAreaContent");
 const projectList = document.getElementById("projectList");
 
 //DOM Utils
-const createDeleteBtn = (element) => {
+const createDeleteBtn = (elementType, elementId) => {
   let deleteBtn = document.createElement("button");
   deleteBtn.textContent = "Delete";
-  deleteBtn.classList.add(element + "DeleteBtn");
+  deleteBtn.classList.add(elementType + "DeleteBtn");
+  if(elementType === "task") {
+  deleteBtn.setAttribute("data-task", elementId);
+}
+else if (elementType ==="project"){
+    deleteBtn.setAttribute("data-project", elementId);
+}
   return deleteBtn;
 };
 
-const createEditBtn = (element, project) => {
+const createEditBtn = (elementType, project) => {
   let editBtn = document.createElement("button");
   editBtn.textContent = "Edit";
-  editBtn.classList.add(element + "EditBtn");
+  editBtn.classList.add(elementType + "EditBtn");
   editBtn.setAttribute("data-project", project.id);
   return editBtn;
 };
@@ -29,7 +35,6 @@ const createRemoveBtn = (project) => {
   removeBtn.setAttribute("data-project", project.id);
   return removeBtn;
 };
-
 const createAddTaskBtn = (project) => {
   let addTaskBtn = document.createElement("button");
   addTaskBtn.textContent = "Add Task";
@@ -43,7 +48,7 @@ const createProjectBtns = (project) => {
   let projectBtnDiv = document.createElement("div");
   projectBtnDiv.classList.add("projectBtnDiv");
 
-  let projectDeleteBtn = createDeleteBtn("project");
+  let projectDeleteBtn = createDeleteBtn("project", project.id);
   projectBtnDiv.appendChild(projectDeleteBtn);
 
   let projectEditBtn = createEditBtn("project", project);
@@ -107,7 +112,7 @@ const displayTask = (task, project) => {
   taskContainer.setAttribute("id", task.id);
 
   //displayTask - Buttons
-  taskContainer.appendChild(createDeleteBtn("task"));
+  taskContainer.appendChild(createDeleteBtn("task", task.id));
   taskContainer.appendChild(createEditBtn("task", project));
 
   if (project !== allProjects[0]) {
@@ -197,12 +202,11 @@ export function initDynamicContent() {
   });
 
   //Main Content Listeners
-
   document.addEventListener("click", function (event) {
     if (event.target.classList.contains("taskDeleteBtn")) {
       //Delete based on task ID
-      fullDeleteTask(event.target.parentNode.id);
-      //Delete container node on GUI associated with that ID
+      fullDeleteTask(event.target.dataset.task);
+      //Immediately delete container node on GUI 
       deleteNode(event.target.parentNode.parentNode.id);
     }
   });
@@ -210,8 +214,7 @@ export function initDynamicContent() {
 
 document.addEventListener("click", function (event) {
   if (event.target.classList.contains("projectDeleteBtn")) {
-    console.log(event.target.id);
-    deleteProject(event.target.id);
+    deleteProject(event.target.dataset.project);
     displayProjectWithTasks(allProjects[0]);
     updateProjectLinks();
   }
