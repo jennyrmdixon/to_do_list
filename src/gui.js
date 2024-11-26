@@ -4,14 +4,8 @@ import { findIndexById } from "./helpers";
 
 const taskArea = document.getElementById("taskAreaContent");
 const projectList = document.getElementById("projectList");
-let currentProjectId= "default";
 
 //DOM Utils
-
-export const trackPageChange = (project) => {
-  currentProjectId = project.id;
-};
-
 const createDeleteBtn = (element) => {
   let deleteBtn = document.createElement("button");
   deleteBtn.textContent = "Delete";
@@ -23,9 +17,7 @@ const createEditBtn = (element, project) => {
   let editBtn = document.createElement("button");
   editBtn.textContent = "Edit";
   editBtn.classList.add(element + "EditBtn");
-  if (project){
   editBtn.setAttribute("data-project", project.id);
-}
   return editBtn;
 };
 
@@ -73,7 +65,6 @@ const displayProject = (project) => {
   projectContainer.appendChild(projectName);
   projectName.setAttribute("data-project", project.id);
   projectName.setAttribute("id", "projectName");
-
 
   let projectDesc = document.createElement("p");
   projectDesc.textContent = project.desc;
@@ -162,7 +153,6 @@ export const displayProjectWithTasks = (project) => {
   clearProjectTasks();
   displayProject(project);
   displayTasks(project);
-  trackPageChange(project);
 };
 
 export const addProjectLink = (project) => {
@@ -178,17 +168,17 @@ export const refreshPage = (projectId) => {
   displayProjectWithTasks(allProjects[findIndexById(allProjects, projectId)]);
 };
 
-export function updateProjectLinks () {
+export function updateProjectLinks() {
   projectList.textContent = "";
   for (let project of allProjects) {
     addProjectLink(project);
   }
-};
+}
 //END DOMUtils
 
 //Init Dynamic Content on New Page Load
 
-export function initDynamicContent () {
+export function initDynamicContent() {
   //On new load, auto display all tasks
   displayProjectWithTasks(allProjects[0]);
 
@@ -198,7 +188,10 @@ export function initDynamicContent () {
   //Display project info after clicking on each page
   projectList.addEventListener("click", function (event) {
     if (event.target.tagName === "LI") {
-      let projectIndex = findIndexById(allProjects, event.target.dataset.project);
+      let projectIndex = findIndexById(
+        allProjects,
+        event.target.dataset.project
+      );
       displayProjectWithTasks(allProjects[projectIndex]);
     }
   });

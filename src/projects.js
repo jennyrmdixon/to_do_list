@@ -1,4 +1,3 @@
-//PROJECTS
 import { addProjectLink } from "./gui";
 import {
   getStoredProjects,

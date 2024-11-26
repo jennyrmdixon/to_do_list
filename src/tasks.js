@@ -1,4 +1,9 @@
-import { uId, findIndexById, updateStorage, getStoredTasks } from "./helpers.js";
+import {
+  uId,
+  findIndexById,
+  updateStorage,
+  getStoredTasks,
+} from "./helpers.js";
 import { allProjects } from "./projects.js";
 
 export let allTasks = [];
@@ -21,6 +26,7 @@ export const createTask = (name, desc, color) => {
   updateStorage();
 };
 
+//Create a sample task exist yet (i.e. on first load of site)
 if (!localStorage.allTasks) {
   createTask("Sample Task", "Here's an example of what a task looks like!");
 }
@@ -28,9 +34,9 @@ if (!localStorage.allTasks) {
 export const addTaskToArray = (array, task) => {
   array.push(task);
   updateStorage();
-}
+};
 
- export const deleteTaskFromArray = (array, taskId) => {
+export const deleteTaskFromArray = (array, taskId) => {
   let index = findIndexById(array, taskId);
   if (index > -1) {
     array.splice(index, 1);
@@ -46,7 +52,7 @@ export const fullDeleteTask = (id) => {
 };
 
 const editTaskInProject = (id, name, desc, color, projectTasks) => {
-  let task = projectTasks.find(task => task.id === id);
+  let task = projectTasks.find((task) => task.id === id);
   // If the task is found, update its properties
   if (task) {
     if (name) {
@@ -59,15 +65,11 @@ const editTaskInProject = (id, name, desc, color, projectTasks) => {
       task.color = color;
     }
   }
+};
 
-}
- 
 export const editTask = (id, name, desc, color) => {
-  for (let project of allProjects){
+  for (let project of allProjects) {
     editTaskInProject(id, name, desc, color, project.tasks);
   }
   updateStorage();
-}
-
-
-
+};

@@ -1,15 +1,19 @@
 import "./style.css";
 import { allTasks } from "./tasks";
-import { updateProjects, createProject, allProjects, createDefaultProject } from "./projects.js";
+import {
+  updateProjects,
+  allProjects,
+  createDefaultProject,
+} from "./projects.js";
 import { initDynamicContent } from "./gui.js";
 import { initForms } from "./forms";
 
-//Load from storage
+//Load projects and tasks from storage
 updateProjects();
 
 document.addEventListener("DOMContentLoaded", function () {
   let checkAllTasks = setInterval(function () {
-    //Wait for  storage to populate
+    //Wait for stored items to populate
     if (
       localStorage.allTasks === JSON.stringify(allTasks) &&
       localStorage.allProjects === JSON.stringify(allProjects)
