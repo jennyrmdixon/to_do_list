@@ -51,6 +51,8 @@ export function initForms() {
   let addTasktoProjectFormHeader = document.getElementById("addTasktoProjectHeader");
   let addTasktoProjectFormId = document.getElementById("addTasktoProjectFormId");
   let selectTask = document.getElementById("selectTask");
+  let noTaskNote = document.getElementById("noTaskNote");
+  let addTasktoProjectSubmit = document.getElementById("addTasktoProjectSubmit")
   let addTasktoProjectPageId = document.getElementById("addTasktoProjectPageId");
 
   //Generate Dynamic Form Content
@@ -74,7 +76,7 @@ export function initForms() {
       selectProject.appendChild(noProjectOption);
       //If only the default project exists, display a note instead of the project select dropdown
     } else {
-      noProjectNote.classList.remove("hidden")
+      noProjectNote.classList.remove("hidden");
       selectProject.classList.add("hidden");
     }
   };
@@ -84,17 +86,32 @@ export function initForms() {
     selectTask.textContent = "";
     let currentProject = allProjects[findIndexById(allProjects, projectId)];
     let availableTasks = [];
+
     for (let i = 0; i < allTasks.length; i++) {
       //If a task does not already exist in current project then include it in the list of task options
       if (findIndexById(currentProject.tasks, allTasks[i].id) === -1) {
         availableTasks.push(allTasks[i]);
       }
     }
-    for (let i = 0; i < availableTasks.length; i++) {
-      let taskOption = document.createElement("option");
-      taskOption.textContent = availableTasks[i].name;
-      taskOption.value = findIndexById(allTasks, availableTasks[i].id);
-      selectTask.appendChild(taskOption);
+    //If no tasks are available to add to Project, display a note instead of the task select dropdown
+    if (availableTasks < 1) {
+      selectTask.classList.add("hidden");
+      addTasktoProjectSubmit.classList.add("hidden");
+      noTaskNote.classList.remove("hidden");
+    } 
+    
+    else {
+      selectTask.classList.remove("hidden");
+      addTasktoProjectSubmit.classList.remove("hidden");
+      noTaskNote.classList.add("hidden");
+
+
+      for (let i = 0; i < availableTasks.length; i++) {
+        let taskOption = document.createElement("option");
+        taskOption.textContent = availableTasks[i].name;
+        taskOption.value = findIndexById(allTasks, availableTasks[i].id);
+        selectTask.appendChild(taskOption);
+      }
     }
   };
 

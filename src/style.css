@@ -148,7 +148,7 @@ select {
   display: inline-block;
 }
 
-#noProjectNote {
+#noProjectNote, #noTaskNote {
   font-style: italic;
   color: grey;
 }
