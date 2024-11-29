@@ -79,9 +79,7 @@ export const moveTask = (taskId, projectId, direction) => {
       newIndex = oldIndex - 1;
     } else if (direction === "down" && oldIndex < taskList.length) {
       newIndex = oldIndex + 1;
-    } else {
-      console.log("ERROR");
-    }
+    } 
 
     taskList.splice(newIndex, 0, taskList.splice(oldIndex, 1)[0]);
     updateStorage();
