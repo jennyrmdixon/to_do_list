@@ -6,40 +6,46 @@ const taskArea = document.getElementById("taskAreaContent");
 const projectList = document.getElementById("projectList");
 
 //DOM Utils
-const createDeleteBtn = (elementType, elementId) => {
+const createDeleteBtn = (elementType, element) => {
   let deleteBtn = document.createElement("button");
   deleteBtn.textContent = "Delete";
   deleteBtn.classList.add(elementType + "DeleteBtn");
-  if(elementType === "task") {
-  deleteBtn.setAttribute("data-task", elementId);
-}
-else if (elementType ==="project"){
-    deleteBtn.setAttribute("data-project", elementId);
-}
+  //ID used to delete specific project or task
+  if (elementType === "task") {
+    deleteBtn.setAttribute("data-task", element.id);
+  } else if (elementType === "project") {
+    deleteBtn.setAttribute("data-project", element.id);
+  }
   return deleteBtn;
 };
 
-const createEditBtn = (elementType, project) => {
+const createEditBtn = (elementType, project, task) => {
   let editBtn = document.createElement("button");
   editBtn.textContent = "Edit";
   editBtn.classList.add(elementType + "EditBtn");
+  //ID used to track current project page for refresh logic
   editBtn.setAttribute("data-project", project.id);
+  if (elementType === "task"){
+    editBtn.setAttribute("data-task", task.id);
+  }
   return editBtn;
 };
 
-const createRemoveBtn = (project) => {
+const createRemoveBtn = (project, task) => {
   let removeBtn = document.createElement("button");
   removeBtn.textContent = "Remove From Project";
   removeBtn.classList.add("removeBtn");
-  //Project ID will be used to identify which project task should be removed from
+  //ID used to track current project page for refresh logic
   removeBtn.setAttribute("data-project", project.id);
+  removeBtn.setAttribute("data-task", task.id);
   return removeBtn;
 };
+
 const createAddTaskBtn = (project) => {
   let addTaskBtn = document.createElement("button");
   addTaskBtn.textContent = "Add Task";
   addTaskBtn.classList.add("addTaskBtn");
-  //Project ID will be used to identify which project task should be added to
+  //ID used to track current project page for refresh logic
   addTaskBtn.setAttribute("data-project", project.id);
   return addTaskBtn;
 };
@@ -48,7 +54,7 @@ const createProjectBtns = (project) => {
   let projectBtnDiv = document.createElement("div");
   projectBtnDiv.classList.add("projectBtnDiv");
 
-  let projectDeleteBtn = createDeleteBtn("project", project.id);
+  let projectDeleteBtn = createDeleteBtn("project", project);
   projectBtnDiv.appendChild(projectDeleteBtn);
 
   let projectEditBtn = createEditBtn("project", project);
@@ -77,6 +83,7 @@ const displayProject = (project) => {
 
   projectContainer.setAttribute("id", project.id);
 
+  //Leave buttons off of default project to prevent editing or deleting
   if (project.id !== "default") {
     let projectBtns = createProjectBtns(project);
     projectContainer.appendChild(projectBtns);
@@ -112,11 +119,11 @@ const displayTask = (task, project) => {
   taskContainer.setAttribute("id", task.id);
 
   //displayTask - Buttons
-  taskContainer.appendChild(createDeleteBtn("task", task.id));
-  taskContainer.appendChild(createEditBtn("task", project));
-
-  if (project !== allProjects[0]) {
-    taskContainer.appendChild(createRemoveBtn(project));
+  taskContainer.appendChild(createDeleteBtn("task", task));
+  taskContainer.appendChild(createEditBtn("task", project, task));
+  //Leave 'remove from project' button off of task if the current project is default. 
+  if (project.id !== "default") {
+    taskContainer.appendChild(createRemoveBtn(project, task));
   }
 
   //displayTask - Arrows
@@ -173,7 +180,7 @@ export const refreshPage = (projectId) => {
   displayProjectWithTasks(allProjects[findIndexById(allProjects, projectId)]);
 };
 
-export function updateProjectLinks() {
+export function refreshProjectLinks() {
   projectList.textContent = "";
   for (let project of allProjects) {
     addProjectLink(project);
@@ -188,7 +195,7 @@ export function initDynamicContent() {
   displayProjectWithTasks(allProjects[0]);
 
   //On new load, auto display links to all projects
-  updateProjectLinks();
+  refreshProjectLinks();
 
   //Display project info after clicking on each page
   projectList.addEventListener("click", function (event) {
@@ -206,7 +213,7 @@ export function initDynamicContent() {
     if (event.target.classList.contains("taskDeleteBtn")) {
       //Delete based on task ID
       fullDeleteTask(event.target.dataset.task);
-      //Immediately delete container node on GUI 
+      //Immediately delete container node on GUI
       deleteNode(event.target.parentNode.parentNode.id);
     }
   });
@@ -216,20 +223,19 @@ document.addEventListener("click", function (event) {
   if (event.target.classList.contains("projectDeleteBtn")) {
     deleteProject(event.target.dataset.project);
     displayProjectWithTasks(allProjects[0]);
-    updateProjectLinks();
+    refreshProjectLinks();
   }
 });
 
 document.addEventListener("click", function (event) {
   if (event.target.classList.contains("removeBtn")) {
-    //takes parameters for project id, task id
     let eventProjectIndex = findIndexById(
       allProjects,
       event.target.dataset.project
     );
     deleteTaskFromArray(
       allProjects[eventProjectIndex].tasks,
-      event.target.parentNode.id
+      event.target.dataset.task
     );
     refreshPage(event.target.dataset.project);
   }

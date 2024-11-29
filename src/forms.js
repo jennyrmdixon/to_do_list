@@ -6,7 +6,7 @@ import {
 } from "./projects";
 import { findIndexById } from "./helpers";
 import { allTasks, createTask, addTaskToArray, editTask } from "./tasks";
-import { displayProjectWithTasks, refreshPage, updateProjectLinks } from "./gui";
+import { displayProjectWithTasks, refreshPage, refreshProjectLinks } from "./gui";
 
 export function initForms() {
   let isFormShown = false;
@@ -53,9 +53,10 @@ export function initForms() {
   let selectTask = document.getElementById("selectTask");
   let addTasktoProjectPageId = document.getElementById("addTasktoProjectPageId");
 
-  //Generate Dynmaic Form Content)
+  //Generate Dynamic Form Content
   const formRefreshProjectOptions = () => {
-    //List all project options, only if projects other than default project exist
+    //Used to load a dropdown list of available projects on New Task form
+    //List all project options if projects other than default project exist
     if (allProjects.length > 1) {
       noProjectNote.classList.add("hidden");
       selectProject.classList.remove("hidden");
@@ -71,17 +72,20 @@ export function initForms() {
       noProjectOption.textContent = "Don't add to project";
       noProjectOption.value = "no project";
       selectProject.appendChild(noProjectOption);
+      //If only the default project exists, display a note instead of the project select dropdown
     } else {
+      noProjectNote.classList.remove("hidden")
       selectProject.classList.add("hidden");
     }
   };
 
   const formRefreshTaskOptions = (projectId) => {
+    //Used to load a dropdown list of available tasks on Add to Project form
     selectTask.textContent = "";
     let currentProject = allProjects[findIndexById(allProjects, projectId)];
     let availableTasks = [];
     for (let i = 0; i < allTasks.length; i++) {
-      //If a task can NOT be found in the array of tasks for current project, then include it in the list of options
+      //If a task does not already exist in current project then include it in the list of task options
       if (findIndexById(currentProject.tasks, allTasks[i].id) === -1) {
         availableTasks.push(allTasks[i]);
       }
@@ -89,41 +93,42 @@ export function initForms() {
     for (let i = 0; i < availableTasks.length; i++) {
       let taskOption = document.createElement("option");
       taskOption.textContent = availableTasks[i].name;
-      //Form intended to utilize index of selected task in All Tasks array
       taskOption.value = findIndexById(allTasks, availableTasks[i].id);
       selectTask.appendChild(taskOption);
     }
   };
 
   const autofillTaskEditForm = (taskId) => {
-    let origTask = findIndexById(allTasks, taskId);
-    editTaskId.value = allTasks[origTask].id;
-    editTaskName.value = allTasks[origTask].name;
-    editTaskDesc.value = allTasks[origTask].desc;
-    editTaskColor.value = allTasks[origTask].color;
+    let taskIndex = findIndexById(allTasks, taskId);
+    editTaskId.value = allTasks[taskIndex].id;
+    editTaskName.value = allTasks[taskIndex].name;
+    editTaskDesc.value = allTasks[taskIndex].desc;
+    editTaskColor.value = allTasks[taskIndex].color;
   };
 
   const autofillProjectEditForm = (projectId) => {
-    let origProject = findIndexById(allProjects, projectId);
-    editProjectId.value = allProjects[origProject].id;
-    editProjectName.value = allProjects[origProject].name;
-    editProjectDesc.value = allProjects[origProject].desc;
+    let projectIndex = findIndexById(allProjects, projectId);
+    editProjectId.value = allProjects[projectIndex].id;
+    editProjectName.value = allProjects[projectIndex].name;
+    editProjectDesc.value = allProjects[projectIndex].desc;
   };
 
   const autofillAddTaskToProjectForm = (projectId) => {
-    //Add header
+    //Add form heading
     let currentProject = allProjects[findIndexById(allProjects, projectId)];
     addTasktoProjectFormHeader.textContent =
       "Add Task For " + currentProject.name;
-    //Add hidden id
+    //Add project ID to use on form submit
     addTasktoProjectFormId.value = projectId;
     formRefreshTaskOptions(projectId);
   };
 
   //Form Helper Functions
-  const fillProjectId = (form) => {
-    let projectName = document.getElementById("projectName");
-    let projectIdValue = projectName.getAttribute("data-project");
+
+  const fillPageId = (form) => {
+    //Adds project ID of current page to form. This is used to refresh the current page on form submit. 
+    let projectHeading = document.getElementById("projectName");
+    let projectIdValue = projectHeading.getAttribute("data-project");
     let projectIdField = form.querySelector(".pageIdField");
     projectIdField.setAttribute("value", projectIdValue);
   };
@@ -135,8 +140,7 @@ export function initForms() {
 
   const showForm = (form) => {
     form.classList.remove("hidden");
-    //Track project page form was opened from. Used to refresh page after submit
-    fillProjectId(form);
+    fillPageId(form);
     isFormShown = true;
   };
 
@@ -158,7 +162,7 @@ export function initForms() {
     if (event.target.classList.contains("taskEditBtn")) {
       if (!isFormShown) {
         autofillTaskEditForm(
-          event.srcElement.parentNode.id,
+          event.srcElement.dataset.task,
           event.srcElement.dataset.project
         );
         showForm(editTaskFormWrap);
@@ -191,8 +195,7 @@ export function initForms() {
     }
   });
 
-  //Handle Form Submits
-  const formHandleSelectedProject = (task) => {
+  const addTaskToSelectedProject = (task) => {
     let selectedProject = document.getElementById("selectProject").value;
     if (selectedProject !== "no project") {
       addTaskToArray(allProjects[selectedProject].tasks, task);
@@ -200,11 +203,12 @@ export function initForms() {
     }
   };
 
+  //Handle Form Submits
   newTaskForm.addEventListener("submit", (event) => {
     event.preventDefault();
     createTask(newTaskName.value, newTaskDesc.value, newTaskColor.value);
     if (allProjects.length > 1) {
-      formHandleSelectedProject(allTasks[allTasks.length - 1]);
+      addTaskToSelectedProject(allTasks[allTasks.length - 1]);
     }
     refreshPage(newTaskPageId.value);
     hideForm(event.target.parentNode);
@@ -237,7 +241,7 @@ export function initForms() {
       editProjectDesc.value
     );
     refreshPage(editProjectPageId.value);
-    updateProjectLinks();
+    refreshProjectLinks();
     hideForm(event.target.parentNode);
   });
 
