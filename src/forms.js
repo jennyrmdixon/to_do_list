@@ -40,6 +40,8 @@ export function initForms() {
   let newProjectPageId = document.getElementById("newProjectPageId");
 
   //Edit Project Form Fields
+  let editProjectFormWrap = document.getElementById("editProjectFormWrap");
+  let editProjectForm = document.getElementById("editProjectForm");
   let editProjectId = document.getElementById("editProjectId");
   let editProjectName = document.getElementById("editProjectName");
   let editProjectDesc = document.getElementById("editProjectDesc");
