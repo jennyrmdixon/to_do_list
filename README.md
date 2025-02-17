@@ -14,6 +14,6 @@ The most recent version of the app is deployed and available for use at:
 
 ## Project Purpose:
 This project was completed as part of The Odin Project curriculum:
-[The Odin Project - To-Do List](https://jennyrmdixon.github.io/to_do_list/)
+[The Odin Project - To-Do List](https://www.theodinproject.com/lessons/node-path-javascript-todo-list)
 
 Feel free to explore, test the features, and contribute!
